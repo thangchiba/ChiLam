@@ -26,6 +26,12 @@ const InitialState = {
       money: 250,
       countDate: 1,
     },
+    {
+      customerName: "Xuân Bắc",
+      customerImage: "xuanbac.jpeg",
+      money: 200,
+      countDate: 21,
+    },
   ],
 };
 
