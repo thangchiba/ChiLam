@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Avatar, Box, Divider, Grid, Typography } from "@mui/material";
+import { Avatar, Divider, Grid, Typography } from "@mui/material";
+import { pink } from "@mui/material/colors";
 import { Fragment } from "react";
-import { orange,pink } from "@mui/material/colors";
-import tulong from "../../static/image/icon/tulong.jpeg";
 
 const StyledContainer = styled(Grid)({
   marginBlock: 3,
@@ -22,11 +21,21 @@ const StyledGrid = styled(Grid)({
 
 function Content(props) {
   const { due } = props;
-  const linkImage = require("../../static/image/icon/".concat(due.customerImage));
+  const linkImage = require("../../static/image/icon/".concat(
+    due.customerImage
+  ));
+
   return (
     <Fragment>
-      <StyledContainer container
-       backgroundColor={due.countDate>=14 ? pink[200] : due.countDate>=7 ? pink[100] : "white"}
+      <StyledContainer
+        container
+        backgroundColor={
+          due.countDate >= 14
+            ? pink[200]
+            : due.countDate >= 7
+            ? pink[100]
+            : "white"
+        }
       >
         <StyledGrid item xs={5}>
           <Avatar src={linkImage} />
