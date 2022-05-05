@@ -31,13 +31,10 @@ const DUMMY_CONTENT = [
 ];
 
 function ListDue() {
-  const listDue = useSelector((redux) => redux.due.listDue);
   return (
     <Fragment>
-      <Header></Header>
-      {listDue.map((due) => {
-        return <Content due={due} />;
-      })}
+      <Header />
+      <Content />
     </Fragment>
   );
 }

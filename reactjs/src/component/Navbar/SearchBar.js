@@ -1,8 +1,10 @@
 import { IconButton, InputBase, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { grey } from "@mui/material/colors";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { CancelOutlined } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { dueAction } from "../../store/DueSlice";
 
 const StyledSearchBar = styled("div")(({ theme }) => ({
   display: "flex",
@@ -19,19 +21,17 @@ const StyledInput = styled(InputBase)((theme) => ({
 }));
 
 function SearchBar(props) {
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
-  const showSearch = props.focusSearchBar;
-  const setShowSearch = props.setFocusSearchBar;
-  const inputRef = useRef("");
-  function handleClickSearch() {
-    alert(searchText);
-  }
   function handlerChangeText(e) {
     setSearchText(e.target.value);
   }
   function handleCancelSearch() {
     setSearchText("");
   }
+  useEffect(() => {
+    dispatch(dueAction.filterByCustomerName(searchText));
+  }, [searchText]);
   return (
     <Fragment>
       <StyledSearchBar sx={{}}>

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Avatar, Divider, Grid, Typography } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 const StyledContainer = styled(Grid)({
   marginBlock: 5,
@@ -9,27 +10,25 @@ const StyledContainer = styled(Grid)({
   height: 45,
   borderRadius: 5,
   borderWidth: 1,
-
 });
 
 const StyledGrid = styled(Grid)({
   display: "flex",
   alignItems: "center",
   justifyContent: "start",
-  paddingInline:3,
+  paddingInline: 3,
   fontSize: 20,
   fontWeight: 700,
-  borderRight:"0.1px solid gray"
+  borderRight: "0.1px solid gray",
 });
 
-function Content(props) {
-  const { due } = props;
-  const linkImage = require("../../static/image/icon/".concat(
-    due.customerImage
-  ));
-
-  return (
-    <Fragment>
+function Content() {
+  const listDueFiltered = useSelector((redux) => redux.due.listDueFiltered);
+  return listDueFiltered.map((due) => {
+    const linkImage = require("../../static/image/icon/".concat(
+      due.customerImage
+    ));
+    return (
       <StyledContainer
         container
         backgroundColor={
@@ -42,7 +41,9 @@ function Content(props) {
       >
         <StyledGrid item xs={5}>
           <Avatar src={linkImage} />
-          <Typography noWrap variant="h5">{due.customerName}</Typography>
+          <Typography noWrap variant="h5">
+            {due.customerName}
+          </Typography>
         </StyledGrid>
         <StyledGrid item xs={3}>
           <Typography variant="h5">{due.total - due.paid}</Typography>
@@ -51,9 +52,8 @@ function Content(props) {
           <Typography variant="h5">{due.countDate + " Ngày"}</Typography>
         </StyledGrid>
       </StyledContainer>
-      {/* <Divider /> */}
-    </Fragment>
-  );
+    );
+  });
 }
 
 export default Content;
