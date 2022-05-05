@@ -1,11 +1,13 @@
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import {
+  Avatar,
   Badge,
   Divider,
   IconButton,
   Menu,
   MenuItem,
   Stack,
+  Typography,
 } from "@mui/material";
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,12 +35,17 @@ function Notification() {
           return (
             <Fragment>
               <MenuItem>
-                {due.customerName +
-                  " No " +
-                  due.money +
-                  " " +
+                <Avatar
+                  src={require("../../static/image/icon/".concat(
+                    due.customerImage
+                  ))}
+                />
+                <Typography variant="h5">{due.customerName +
+                  " - " +
+                  (due.total-due.paid) +
+                  " - " +
                   due.countDate +
-                  " Ngay"}
+                  " Ngày"}</Typography>
               </MenuItem>
             </Fragment>
           );

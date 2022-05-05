@@ -4,19 +4,22 @@ import { pink } from "@mui/material/colors";
 import { Fragment } from "react";
 
 const StyledContainer = styled(Grid)({
-  marginBlock: 3,
+  marginBlock: 5,
   // backgroundColor:orange[300],
   height: 45,
   borderRadius: 5,
   borderWidth: 1,
+
 });
 
 const StyledGrid = styled(Grid)({
   display: "flex",
   alignItems: "center",
   justifyContent: "start",
+  paddingInline:3,
   fontSize: 20,
   fontWeight: 700,
+  borderRight:"0.1px solid gray"
 });
 
 function Content(props) {
@@ -39,16 +42,16 @@ function Content(props) {
       >
         <StyledGrid item xs={5}>
           <Avatar src={linkImage} />
-          <Typography variant="h5">{due.customerName}</Typography>
+          <Typography noWrap variant="h5">{due.customerName}</Typography>
         </StyledGrid>
         <StyledGrid item xs={3}>
-          <Typography variant="h5">{due.money}</Typography>
+          <Typography variant="h5">{due.total - due.paid}</Typography>
         </StyledGrid>
         <StyledGrid item xs={4}>
           <Typography variant="h5">{due.countDate + " Ngày"}</Typography>
         </StyledGrid>
       </StyledContainer>
-      <Divider />
+      {/* <Divider /> */}
     </Fragment>
   );
 }

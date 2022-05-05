@@ -15,7 +15,8 @@ const StyledGrid = styled(Grid)({
     alignItems:"center",
     justifyContent:"center",
     fontSize:20,
-    fontWeight:700
+    fontWeight:700,
+    borderRight:"1px solid gray"
 });
 
 function Header() {
@@ -26,7 +27,7 @@ function Header() {
           Khách Hàng
         </StyledGrid>
         <StyledGrid item xs={3}>
-          Số Tiền
+          Thiếu
         </StyledGrid>
         <StyledGrid item xs={4}>
           Thời Gian
