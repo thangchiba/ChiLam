@@ -52,15 +52,16 @@ const InitialState = {
       countDate: 21,
     },
   ],
+  listDueFiltered: [],
 };
 
 const DueSlice = createSlice({
   name: "due",
   initialState: InitialState,
   reducers: {
-    // changeLoginState(state) {
-    //   state.isLoggedIn = !state.isLoggedIn;
-    // },
+    setListDueFiltered(state,action) {
+      state.listDueFiltered = action.payload;
+    },
   },
 });
 
