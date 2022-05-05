@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 import { Avatar, Divider, Grid, Typography } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import CountDays from "../../CommonMethod/DateTimeCalc";
+import { dueAction } from "../../store/DueSlice";
 
 const StyledContainer = styled(Grid)({
   marginBlock: 5,
@@ -23,21 +25,28 @@ const StyledGrid = styled(Grid)({
 });
 
 function Content() {
+  const dispatch = useDispatch();
   const listDueFiltered = useSelector((redux) => redux.due.listDueFiltered);
+  function handleClickDueContent(due) {
+    dispatch(dueAction.openDueDetail(due));
+  }
   return listDueFiltered.map((due) => {
     const linkImage = require("../../static/image/icon/".concat(
       due.customerImage
     ));
+    let countDays = CountDays(due.date);
     return (
       <StyledContainer
         container
         backgroundColor={
-          due.countDate >= 14
+          countDays >= 14
             ? pink[200]
-            : due.countDate >= 7
+            : countDays >= 7
             ? pink[100]
             : "white"
         }
+        key={due.id}
+        onClick={() => handleClickDueContent(due)}
       >
         <StyledGrid item xs={5}>
           <Avatar src={linkImage} />
@@ -49,7 +58,9 @@ function Content() {
           <Typography variant="h5">{due.total - due.paid}</Typography>
         </StyledGrid>
         <StyledGrid item xs={4}>
-          <Typography variant="h5">{due.countDate + " Ngày"}</Typography>
+          <Typography variant="h5">
+            {countDays + " Ngày"}
+          </Typography>
         </StyledGrid>
       </StyledContainer>
     );

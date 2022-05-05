@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
+import CountDays from "../../CommonMethod/DateTimeCalc";
 
 function Notification() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,7 +23,10 @@ function Notification() {
     setAnchorEl(null);
   }
   const listDue = useSelector((redux) => redux.due.listDue);
-  const listDueWarning = listDue.filter((due) => due.countDate > 7);
+  const listDueWarning = listDue.filter((due) => {
+    let countDays = CountDays(due.date);
+    return countDays > 7;
+  });
   return (
     <Stack>
       <IconButton onClick={handleClick}>
@@ -33,21 +37,21 @@ function Notification() {
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
         {listDueWarning.map((due) => {
           return (
-            <Fragment>
-              <MenuItem>
-                <Avatar
-                  src={require("../../static/image/icon/".concat(
-                    due.customerImage
-                  ))}
-                />
-                <Typography variant="h5">{due.customerName +
+            <MenuItem key={due.id}>
+              <Avatar
+                src={require("../../static/image/icon/".concat(
+                  due.customerImage
+                ))}
+              />
+              <Typography variant="h5">
+                {due.customerName +
                   " - " +
-                  (due.total-due.paid) +
+                  (due.total - due.paid) +
                   " - " +
                   due.countDate +
-                  " Ngày"}</Typography>
-              </MenuItem>
-            </Fragment>
+                  " Ngày"}
+              </Typography>
+            </MenuItem>
           );
         })}
       </Menu>
