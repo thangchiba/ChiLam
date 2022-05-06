@@ -25,7 +25,7 @@ function Notification() {
   const listDue = useSelector((redux) => redux.due.listDue);
   const listDueWarning = listDue.filter((due) => {
     let countDays = CountDays(due.date);
-    return countDays > 7;
+    return countDays >= 7;
   });
   return (
     <Stack>
@@ -48,7 +48,7 @@ function Notification() {
                   " - " +
                   (due.total - due.paid) +
                   " - " +
-                  due.countDate +
+                  CountDays(due.date) +
                   " Ngày"}
               </Typography>
             </MenuItem>

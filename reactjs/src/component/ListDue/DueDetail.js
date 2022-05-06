@@ -20,7 +20,7 @@ function DueDetail() {
   }
   return (
     // const linkImage = );
-    <CommonModal open={dueDetail.open} close={closeDueDetail}>
+    <CommonModal open={dueDetail.open} onClose={closeDueDetail}>
       {dueDetail.due && (
         <Fragment>
           {/* <Typography variant="h3" color="red" textAlign="center">

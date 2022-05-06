@@ -9,7 +9,7 @@ const InitialState = {
       total: 1650,
       paid: 250,
       countDate: 8,
-      date:new Date("04/28/2022"),
+      date:new Date("05/05/2022"),
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const InitialState = {
       total: 850,
       paid: 0,
       countDate: 3,
-      date:new Date("05/1/2022"),
+      date:new Date("05/01/2022"),
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const InitialState = {
       total: 250,
       paid: 0,
       countDate: 1,
-      date:new Date("05/3/2022"),
+      date:new Date("04/28/2022"),
     },
     {
       id: 5,

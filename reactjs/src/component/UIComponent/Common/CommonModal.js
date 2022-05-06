@@ -13,16 +13,16 @@ const StyledBox = styled(Box)({
 });
 
 function CommonModal(props) {
-  const { close } = props;
+  const { onClose } = props;
   return (
     <Modal
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      onBackdropClick={close}
+      onBackdropClick={onClose}
       {...props}
     >
       <StyledBox>
         <Box display="flex" justifyContent="end">
-          <CloseOutlinedIcon fontSize="large" onClick={close} />
+          <CloseOutlinedIcon fontSize="large" onClick={onClose} />
         </Box>
         {props.children}
       </StyledBox>

@@ -7,7 +7,6 @@ function CountDays(date) {
 }
 
 function getDateVietnamese(date) {
-  console.log(date);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();
@@ -16,7 +15,6 @@ function getDateVietnamese(date) {
   const dayname = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
   return (
-    // "Ngày " + day + " Tháng " + month + " Năm " + year + "("+dayname[dayofweek]
     `Ngày ${day} Tháng ${month} Năm ${year} (${dayname[dayofweek]})`
   );
 }
