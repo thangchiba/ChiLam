@@ -15,7 +15,8 @@ function getDateVietnamese(date) {
   const dayname = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
   return (
-    `Ngày ${day} Tháng ${month} Năm ${year} (${dayname[dayofweek]})`
+    // `Ngày ${day} Tháng ${month} Năm ${year} (${dayname[dayofweek]})`
+    `${day}/${month}/${year} (${dayname[dayofweek]})`
   );
 }
 

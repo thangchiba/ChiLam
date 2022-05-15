@@ -9,7 +9,7 @@ const StyledBox = styled(Box)({
   height: "70vh",
   borderRadius: 20,
   padding: 10,
-  overflow:"scroll",
+  overflow: "scroll",
 });
 
 function CommonModal(props) {

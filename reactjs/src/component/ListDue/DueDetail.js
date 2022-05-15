@@ -1,15 +1,10 @@
-import {
-  Avatar,
-  CircularProgress,
-  Divider,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDateVietnamese } from "../../CommonMethod/DateTimeCalc";
 import { dueAction } from "../../store/DueSlice";
+import CircularStatic from "../UIComponent/Common/CircularStatic";
 import CommonModal from "../UIComponent/Common/CommonModal";
 
 function DueDetail() {
@@ -23,10 +18,14 @@ function DueDetail() {
     <CommonModal open={dueDetail.open} onClose={closeDueDetail}>
       {dueDetail.due && (
         <Fragment>
+          <Typography variant="h4" color="primary" textAlign="center">
+            {GetDateVietnamese(dueDetail.due.date)}
+          </Typography>
           {/* <Typography variant="h3" color="red" textAlign="center">
             Hóa Đơn
-          </Typography>
-          <Divider /> */}
+          </Typography> */}
+
+          <Divider />
           <Box
             display="flex"
             flexDirection={"column"}
@@ -37,42 +36,30 @@ function DueDetail() {
               src={require("../../static/image/icon/".concat(
                 dueDetail.due.customerImage
               ))}
-              sx={{ width: 100, height: 100 }}
+              sx={{ width: 120, height: 120 }}
             />
             <Typography variant="h4" color="secondary">
               {dueDetail.due.customerName}
             </Typography>
           </Box>
-          <Box>
-            <Stack direction={"row"} spacing={1}>
+
+          <Box mt={3} display="flex" justifyContent="space-between">
+            <Stack direction={"column"} spacing={1}>
               <Typography variant="h5" color="green">
-                Tổng Tiền :{" "}
+                Tổng Tiền : {dueDetail.due.total}
               </Typography>
               <Typography variant="h5" color="green">
-                {dueDetail.due.total}
-              </Typography>
-            </Stack>
-            <Stack direction={"row"} spacing={1}>
-              <Typography variant="h5" color="green">
-                Thanh Toán :{" "}
-              </Typography>
-              <Typography variant="h5" color="green">
-                {dueDetail.due.paid}
-              </Typography>
-            </Stack>
-            <Stack direction={"row"} spacing={1}>
-              <Typography variant="h5" color="red">
-                Còn Thiếu :{" "}
+                Thanh Toán : {dueDetail.due.paid}
               </Typography>
               <Typography variant="h5" color="red">
-                {dueDetail.due.total - dueDetail.due.paid}
+                Còn Thiếu : {dueDetail.due.total - dueDetail.due.paid}
               </Typography>
+              <Typography variant="h5" color="red"></Typography>
             </Stack>
-            <Stack direction={"row"} spacing={1}>
-              <Typography variant="h5" color="primary">
-                {GetDateVietnamese(dueDetail.due.date)}
-              </Typography>
-            </Stack>
+            <CircularStatic
+              progress={(dueDetail.due.paid / dueDetail.due.total) * 100}
+              // progress={100}
+            />
           </Box>
         </Fragment>
       )}

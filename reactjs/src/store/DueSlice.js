@@ -9,7 +9,7 @@ const InitialState = {
       total: 1650,
       paid: 250,
       countDate: 8,
-      date:new Date("05/05/2022"),
+      date: new Date("05/05/2022"),
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const InitialState = {
       total: 850,
       paid: 0,
       countDate: 3,
-      date:new Date("05/01/2022"),
+      date: new Date("05/01/2022"),
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ const InitialState = {
       total: 2840,
       paid: 250,
       countDate: 19,
-      date:new Date("03/20/2022"),
+      date: new Date("03/20/2022"),
     },
     {
       id: 4,
@@ -36,7 +36,7 @@ const InitialState = {
       total: 250,
       paid: 0,
       countDate: 1,
-      date:new Date("04/28/2022"),
+      date: new Date("04/28/2022"),
     },
     {
       id: 5,
@@ -45,7 +45,7 @@ const InitialState = {
       total: 250,
       paid: 0,
       countDate: 1,
-      date:new Date("04/29/2022"),
+      date: new Date("04/29/2022"),
     },
     {
       id: 6,
@@ -54,7 +54,7 @@ const InitialState = {
       total: 250,
       paid: 0,
       countDate: 1,
-      date:new Date("04/30/2022"),
+      date: new Date("04/30/2022"),
     },
     {
       id: 7,
@@ -63,7 +63,7 @@ const InitialState = {
       total: 200,
       paid: 0,
       countDate: 21,
-      date:new Date("04/20/2022"),
+      date: new Date("04/20/2022"),
     },
   ],
   listDueFiltered: [],

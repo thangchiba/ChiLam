@@ -4,19 +4,19 @@ import { blue } from "@mui/material/colors";
 import { Fragment } from "react";
 
 const StyledContainer = styled(Grid)({
-    marginBlock:10,
-    backgroundColor:blue[300],
-    height:45,
-    borderRadius:5
-})
+  marginBlock: 10,
+  backgroundColor: blue[300],
+  height: 45,
+  borderRadius: 5,
+});
 
 const StyledGrid = styled(Grid)({
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    fontSize:20,
-    fontWeight:700,
-    borderRight:"1px solid gray"
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: 20,
+  fontWeight: 700,
+  borderRight: "1px solid gray",
 });
 
 function Header() {

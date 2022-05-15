@@ -1,16 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const InitialState = {
-    searchContent: ""
-  };
+  searchContent: "",
+};
 const SearchSlice = createSlice({
-    name : 'search',
-    initialState : InitialState,
-    reducers:{
-        // changeLoginState(state){
-        //     state.isLoggedIn = !state.isLoggedIn;
-        // }
-    }
+  name: "search",
+  initialState: InitialState,
+  reducers: {
+    // changeLoginState(state){
+    //     state.isLoggedIn = !state.isLoggedIn;
+    // }
+  },
 });
 
 export const searchAction = SearchSlice.actions;

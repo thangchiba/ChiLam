@@ -39,11 +39,7 @@ function Content() {
       <StyledContainer
         container
         backgroundColor={
-          countDays >= 14
-            ? pink[200]
-            : countDays >= 7
-            ? pink[100]
-            : "white"
+          countDays >= 14 ? pink[200] : countDays >= 7 ? pink[100] : "white"
         }
         key={due.id}
         onClick={() => handleClickDueContent(due)}
@@ -58,9 +54,7 @@ function Content() {
           <Typography variant="h5">{due.total - due.paid}</Typography>
         </StyledGrid>
         <StyledGrid item xs={4}>
-          <Typography variant="h5">
-            {countDays + " Ngày"}
-          </Typography>
+          <Typography variant="h5">{countDays + " Ngày"}</Typography>
         </StyledGrid>
       </StyledContainer>
     );
