@@ -17,7 +17,8 @@ function CircularProgressWithLabel(props) {
         variant="determinate"
         {...props}
         color="success"
-        thickness={5}
+        thickness={7}
+        sx={{ border: "1px solid green", borderRadius: 50 }}
       />
       <Box
         sx={{
