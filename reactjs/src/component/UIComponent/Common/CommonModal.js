@@ -22,7 +22,11 @@ function CommonModal(props) {
     >
       <StyledBox>
         <Box display="flex" justifyContent="end">
-          <CloseOutlinedIcon fontSize="large" onClick={onClose} />
+          <CloseOutlinedIcon
+            fontSize="large"
+            onClick={onClose}
+            cursor="pointer"
+          />
         </Box>
         {props.children}
       </StyledBox>

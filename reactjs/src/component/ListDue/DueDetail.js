@@ -1,6 +1,5 @@
 import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDateVietnamese } from "../../CommonMethod/DateTimeCalc";
 import { dueAction } from "../../store/DueSlice";
@@ -17,7 +16,7 @@ function DueDetail() {
     // const linkImage = );
     <CommonModal open={dueDetail.open} onClose={closeDueDetail}>
       {dueDetail.due && (
-        <Fragment>
+        <Box mt={2}>
           <Typography variant="h4" color="primary" textAlign="center">
             {GetDateVietnamese(dueDetail.due.date)}
           </Typography>
@@ -61,7 +60,7 @@ function DueDetail() {
               // progress={100}
             />
           </Box>
-        </Fragment>
+        </Box>
       )}
     </CommonModal>
   );

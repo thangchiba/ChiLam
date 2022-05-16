@@ -11,13 +11,15 @@ const StyledSearchBar = styled("div")(({ theme }) => ({
   marginInline: 10,
   borderRadius: 10,
   backgroundColor: grey[100],
-  maxHeight: 50,
+  // maxHeight: 50,
+  height: 55,
 }));
 
 const StyledInput = styled(InputBase)((theme) => ({
   marginLeft: 15,
   width: "70%",
   padding: 0,
+  fontSize: 23,
 }));
 
 function SearchBar(props) {

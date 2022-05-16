@@ -9,6 +9,7 @@ import UserAvatar from "./UserAvatar";
 const StyledToolbar = styled(Toolbar)({
   backgroundColor: "white",
   color: "black",
+  height: 60,
 });
 
 function Navbar() {
