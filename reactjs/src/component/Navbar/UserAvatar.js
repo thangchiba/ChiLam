@@ -14,6 +14,7 @@ import meat from "../../static/image/icon/meat.png";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import HomeIcon from "@mui/icons-material/Home";
 import PaidIcon from "@mui/icons-material/Paid";
+import { Link } from "react-router-dom";
 
 function UserAvatar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,34 +27,51 @@ function UserAvatar(props) {
   }
   return (
     <Fragment>
-      <Avatar alt="Hoang Thang" src={meat} onClick={handleClick} sx={{width:50,height:50}} />
+      <Avatar
+        alt="Hoang Thang"
+        src={meat}
+        onClick={handleClick}
+        sx={{ width: 50, height: 50 }}
+      />
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
-        <MenuItem>
-          <Stack direction="row" alignItems={"center"} spacing={1}>
-            <HomeIcon sx={{ fontSize: 30 }} color="primary" />
-            <Typography variant="h6" textAlign={"center"}>
-              Trang Chủ
-            </Typography>
-          </Stack>
-        </MenuItem>
+        <Link to="/homepage" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem>
+            <Stack direction="row" alignItems={"center"} spacing={1}>
+              <HomeIcon sx={{ fontSize: 30 }} color="primary" />
+              <Typography variant="h6" textAlign={"center"}>
+                Trang Chủ
+              </Typography>
+            </Stack>
+          </MenuItem>
+        </Link>
         <Divider />
-        <MenuItem>
-          <Stack direction="row" alignItems={"center"} spacing={1}>
-            <AccountCircleRoundedIcon sx={{ fontSize: 30 }} color="secondary" />
-            <Typography variant="h6" textAlign={"center"}>
-              Khách Hàng
-            </Typography>
-          </Stack>
-        </MenuItem>
-        <Divider/>
-        <MenuItem onClick={props.LogOut}>
-          <Stack direction="row" alignItems={"center"} spacing={1}>
-            <PaidIcon sx={{ fontSize: 30 }} color="error" />
-            <Typography variant="h6" textAlign={"center"}>
-              Thanh Toán
-            </Typography>
-          </Stack>
-        </MenuItem>
+        <Link
+          to="/customerpage"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <MenuItem>
+            <Stack direction="row" alignItems={"center"} spacing={1}>
+              <AccountCircleRoundedIcon
+                sx={{ fontSize: 30 }}
+                color="secondary"
+              />
+              <Typography variant="h6" textAlign={"center"}>
+                Khách Hàng
+              </Typography>
+            </Stack>
+          </MenuItem>
+        </Link>
+        <Divider />
+        <Link to="/paypage" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem onClick={props.LogOut}>
+            <Stack direction="row" alignItems={"center"} spacing={1}>
+              <PaidIcon sx={{ fontSize: 30 }} color="error" />
+              <Typography variant="h6" textAlign={"center"}>
+                Thanh Toán
+              </Typography>
+            </Stack>
+          </MenuItem>
+        </Link>
       </Menu>
     </Fragment>
   );
