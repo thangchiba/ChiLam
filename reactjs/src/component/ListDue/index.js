@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import Content from "./Content";
 import DueDetail from "./DueDetail";
+import Filter from "./Filter";
 import Header from "./Header";
 
 const DUMMY_CONTENT = [
@@ -34,6 +35,7 @@ const DUMMY_CONTENT = [
 function ListDue() {
   return (
     <Fragment>
+      <Filter />
       <Header />
       <Content />
       <DueDetail />

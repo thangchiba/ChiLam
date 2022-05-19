@@ -78,6 +78,8 @@ const DueSlice = createSlice({
   initialState: InitialState,
   reducers: {
     filterByCustomerName(state, action) {
+      if (!action.payload || action.payload === "")
+        state.listDueFiltered = state.listDue;
       state.listDueFiltered = state.listDue.filter((due) =>
         due.customerName.includes(action.payload)
       );

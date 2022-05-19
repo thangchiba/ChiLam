@@ -3,8 +3,8 @@ import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDateVietnamese } from "../../CommonMethod/DateTimeCalc";
 import { dueAction } from "../../store/DueSlice";
-import CircularStatic from "../UIComponent/Common/CircularStatic";
-import CommonModal from "../UIComponent/Common/CommonModal";
+import CircularStatic from "../UIComponent/CircularStatic";
+import CommonModal from "../UIComponent/CommonModal";
 
 function DueDetail() {
   const dispatch = useDispatch();

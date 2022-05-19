@@ -3,13 +3,13 @@ import { AppBar, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import Category from "./Category";
 import Notification from "./Notification";
-import SearchBar from "./SearchBar";
+import SearchBarNew from "./SearchBarNew";
 import UserAvatar from "./UserAvatar";
 
 const StyledToolbar = styled(Toolbar)({
   backgroundColor: "white",
   color: "black",
-  height: 60,
+  height: 70,
 });
 
 function Navbar() {
@@ -25,7 +25,8 @@ function Navbar() {
           >
             <UserAvatar />
             <Category />
-            <SearchBar />
+            {/* <SearchBar /> */}
+            <SearchBarNew />
             <Notification />
           </Box>
         </StyledToolbar>
