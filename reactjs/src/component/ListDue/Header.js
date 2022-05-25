@@ -27,7 +27,7 @@ function Header() {
           Khách Hàng
         </StyledGrid>
         <StyledGrid item xs={3}>
-          Thiếu
+          Số Tiền
         </StyledGrid>
         <StyledGrid item xs={4}>
           Thời Gian
