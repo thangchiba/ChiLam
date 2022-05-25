@@ -1,10 +1,12 @@
 package lamcuong.xyz.ChiLamAPI.Controller;
 
-import lamcuong.xyz.ChiLamAPI.Service.ProductThumbnailsService;
+import lamcuong.xyz.ChiLamAPI.Model.Due;
+import lamcuong.xyz.ChiLamAPI.Service.DueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -13,11 +15,13 @@ import java.util.List;
 @CrossOrigin
 public class DueController {
     @Autowired
-    ProductThumbnailsService productThumbnailsService;
+    DueService dueService;
 
     @GetMapping("/due")
     @CrossOrigin
-    public ResponseEntity<String> GetDue() {
-        return ResponseEntity.ok("Heloo babe");
+    public ResponseEntity<List<Due>> GetDue() {
+        List<Due> result;
+        result = dueService.getDue();
+        return ResponseEntity.ok(result);
     }
 }
