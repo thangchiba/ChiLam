@@ -1,4 +1,6 @@
-function CountDays(date) {
+function CountDays(dateInput) {
+  let date = new Date(dateInput);
+  console.log(date);
   let today = new Date();
   let countDays = Math.floor(
     (today.getTime() - date.getTime()) / (1000 * 3600 * 24)
