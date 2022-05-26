@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+ChiLamAPI/src/main/resources/application.properties
 
 ### IntelliJ IDEA ###
 .idea
