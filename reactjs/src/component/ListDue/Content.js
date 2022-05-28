@@ -40,7 +40,6 @@ function Content() {
     };
     getDue();
   }, []);
-  console.log(listDue);
   return listDue.map((due) => {
     // const linkImage = require("../../static/image/icon/".concat(
     //   // due.customerImage
@@ -59,7 +58,7 @@ function Content() {
         <StyledGrid item xs={5}>
           {/* <Avatar src={linkImage} /> */}
           <Typography noWrap variant="h5">
-            {due.customerId}
+            {due.customerName}
           </Typography>
         </StyledGrid>
         <StyledGrid item xs={3}>

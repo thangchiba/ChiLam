@@ -13,8 +13,14 @@ public class DueService extends BaseService<String> {
     protected RowMapper rowMapper = new BeanPropertyRowMapper<Due>(Due.class);
 
     private static String GET_DUE = new StringBuilder()
-            .append("SELECT * " +
-                    "FROM M_DUE ").toString();
+            .append("SELECT MD.DUE_ID AS DUE_ID\n" +
+                    ",  MC.CUSTOMER_NAME AS CUSTOMER_NAME\n" +
+                    ",  MD.MONEY AS MONEY\n" +
+                    ",  MD.CREATE_DATE AS CREATE_DATE\n" +
+                    ",  MD.UPDATE_DATE AS UPDATE_DATE\n" +
+                    "FROM M_DUE AS MD\n" +
+                    "LEFT JOIN M_CUSTOMER AS MC ON MD.CUSTOMER_ID = MC.CUSTOMER_ID\n" +
+                    "WHERE MD.DEL_FLG IS NOT TRUE").toString();
 
     public List<Due> getDue() {
         try {
