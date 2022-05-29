@@ -12,4 +12,6 @@ public class GetDueRequest {
     private String customerId;
     private Date fromDate;
     private Date toDate;
+    private Integer itemPerPage;
+    private Integer page;
 }

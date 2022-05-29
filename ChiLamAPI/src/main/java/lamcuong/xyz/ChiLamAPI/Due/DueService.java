@@ -40,8 +40,9 @@ public class DueService extends BaseService<String> {
             WHERE_CLAUSE += " AND MD.create_date <= ?";
             params.add(getDueRequest.getToDate());
         }
+        String PAGINATING_QUERY = PaginatingQuery(getDueRequest.getItemPerPage(),getDueRequest.getPage());
         try {
-            List<GetDueResponse> result = jdbcTemplate.query(GET_DUE+WHERE_CLAUSE, rowMapper,params.toArray());
+            List<GetDueResponse> result = jdbcTemplate.query(GET_DUE+WHERE_CLAUSE+PAGINATING_QUERY, rowMapper,params.toArray());
             return result;
         } catch (Exception e) {
             e.printStackTrace();

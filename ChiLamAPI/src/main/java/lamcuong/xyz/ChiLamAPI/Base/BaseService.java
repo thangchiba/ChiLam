@@ -8,4 +8,8 @@ import org.springframework.stereotype.Service;
 public class BaseService<T> {
     @Autowired
     protected JdbcTemplate jdbcTemplate;
+    protected String PaginatingQuery(Integer itemPerPage,Integer page){
+        return " LIMIT " + itemPerPage + " OFFSET " +page*itemPerPage;
+    }
+
 }
