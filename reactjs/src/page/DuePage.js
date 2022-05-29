@@ -1,10 +1,10 @@
 import { Fragment } from "react";
-import ListDue from "../component/ListDue";
+import Due from "../component/Due";
 
 function DuePage() {
   return (
     <Fragment>
-      <ListDue />
+      <Due />
     </Fragment>
   );
 }
