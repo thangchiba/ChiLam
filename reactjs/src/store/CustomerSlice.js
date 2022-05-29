@@ -31,6 +31,10 @@ const CustomerSlice = createSlice({
     // changeLoginState(state){
     //     state.isLoggedIn = !state.isLoggedIn;
     // }
+    setListCustomer(state, action) {
+      const { listCustomer } = action.payload;
+      state.listCustomer = listCustomer;
+    },
   },
 });
 

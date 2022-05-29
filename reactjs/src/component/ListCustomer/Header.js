@@ -30,7 +30,7 @@ function Header() {
           Thiếu
         </StyledGrid>
         <StyledGrid item xs={3}>
-          Ngày
+          Thời Gian
         </StyledGrid>
       </StyledContainer>
     </Fragment>
