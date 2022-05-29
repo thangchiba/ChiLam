@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { AppBar, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
-import Category from "./Category";
+import PageSelect from "./PageSelect";
 import Notification from "./Notification";
 import SearchBarNew from "./SearchBarNew";
 import UserAvatar from "./UserAvatar";
@@ -24,7 +24,7 @@ function Navbar() {
             sx={{ width: "100%" }}
           >
             <UserAvatar />
-            <Category />
+            <PageSelect />
             {/* <SearchBar /> */}
             <SearchBarNew />
             <Notification />

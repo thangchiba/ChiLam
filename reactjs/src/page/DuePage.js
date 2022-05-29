@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import ListDue from "../component/ListDue";
 
-function HomePage() {
+function DuePage() {
   return (
     <Fragment>
       <ListDue />
     </Fragment>
   );
 }
-export default HomePage;
+export default DuePage;

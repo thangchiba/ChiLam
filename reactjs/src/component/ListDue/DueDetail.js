@@ -20,9 +20,6 @@ function DueDetail() {
           <Typography variant="h4" color="primary" textAlign="center">
             {GetDateVietnamese(dueDetail.due.date)}
           </Typography>
-          {/* <Typography variant="h3" color="red" textAlign="center">
-            Hóa Đơn
-          </Typography> */}
 
           <Divider />
           <Box

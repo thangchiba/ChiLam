@@ -34,21 +34,7 @@ function UserAvatar(props) {
         sx={{ width: 50, height: 50 }}
       />
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
-        <Link to="/homepage" style={{ textDecoration: "none", color: "black" }}>
-          <MenuItem>
-            <Stack direction="row" alignItems={"center"} spacing={1}>
-              <HomeIcon sx={{ fontSize: 30 }} color="primary" />
-              <Typography variant="h6" textAlign={"center"}>
-                Trang Chủ
-              </Typography>
-            </Stack>
-          </MenuItem>
-        </Link>
-        <Divider />
-        <Link
-          to="/customerpage"
-          style={{ textDecoration: "none", color: "black" }}
-        >
+        <Link to="/customer" style={{ textDecoration: "none", color: "black" }}>
           <MenuItem>
             <Stack direction="row" alignItems={"center"} spacing={1}>
               <AccountCircleRoundedIcon
@@ -62,7 +48,18 @@ function UserAvatar(props) {
           </MenuItem>
         </Link>
         <Divider />
-        <Link to="/paypage" style={{ textDecoration: "none", color: "black" }}>
+        <Link to="/due" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem>
+            <Stack direction="row" alignItems={"center"} spacing={1}>
+              <HomeIcon sx={{ fontSize: 30 }} color="primary" />
+              <Typography variant="h6" textAlign={"center"}>
+                Phiếu Nợ
+              </Typography>
+            </Stack>
+          </MenuItem>
+        </Link>
+        <Divider />
+        <Link to="/pay" style={{ textDecoration: "none", color: "black" }}>
           <MenuItem onClick={props.LogOut}>
             <Stack direction="row" alignItems={"center"} spacing={1}>
               <PaidIcon sx={{ fontSize: 30 }} color="error" />
