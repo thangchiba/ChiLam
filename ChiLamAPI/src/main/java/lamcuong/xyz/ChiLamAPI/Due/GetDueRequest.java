@@ -14,4 +14,5 @@ public class GetDueRequest {
     private Date toDate;
     private Integer itemPerPage;
     private Integer page;
+    private String orderBy;
 }

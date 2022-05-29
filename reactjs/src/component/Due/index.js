@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import ListDue from "./ListDue";
 import DueDetail from "./DueDetail";
 import Filter from "./Filter";
 import Header from "./Header";
+import ListDue from "./ListDue";
 
-function DuePage() {
+function Due() {
   return (
     <Fragment>
       <Filter />
@@ -16,4 +16,4 @@ function DuePage() {
   );
 }
 
-export default DuePage;
+export default Due;
