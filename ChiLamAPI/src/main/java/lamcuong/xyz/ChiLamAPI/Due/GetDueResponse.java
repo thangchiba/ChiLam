@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DueResponse {
+public class GetDueResponse {
     private String dueId;
     private String customerName;
     private Long money;
