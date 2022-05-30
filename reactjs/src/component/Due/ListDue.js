@@ -25,7 +25,7 @@ function ListDue() {
       orderBy: "due_id",
     });
     console.log(response);
-    if ((response.length = 0)) {
+    if (response.length == 0) {
       console.log("no has more");
       setHasmore(false);
     }
