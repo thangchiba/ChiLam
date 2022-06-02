@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import { Fragment } from "react";
+import AddDueButton from "./component/Due/AddDueButton";
 import Navbar from "./component/Navbar";
 
 function Layout(props) {
@@ -7,6 +7,7 @@ function Layout(props) {
     <Box>
       <Navbar />
       {props.children}
+      <AddDueButton />
     </Box>
   );
 }

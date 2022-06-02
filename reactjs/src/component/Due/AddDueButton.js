@@ -1,21 +1,27 @@
-import { AddCircleOutlined } from "@mui/icons-material";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Button, Fab, Stack, TextField, Typography } from "@mui/material";
 import { Fragment, useState } from "react";
 import CommonModal from "../UIComponent/CommonModal";
-function AddCustomer() {
-  const [openAddCustomer, setOpenAddCustomer] = useState();
+
+function AddDueButton() {
+  const [openAddDue, setOpenAddDue] = useState(false);
   return (
     <Fragment>
-      <Button
-        variant="outlined"
-        color="success"
+      <Fab
         size="large"
-        endIcon={<AddCircleOutlined />}
-        onClick={() => setOpenAddCustomer(true)}
+        color="secondary"
+        aria-label="add"
+        sx={{ position: "fixed", bottom: 15, right: 10 }}
+        onClick={() => setOpenAddDue(true)}
       >
-        Thêm Khách
-      </Button>
-      <CommonModal open={openAddCustomer} setOpen={setOpenAddCustomer}>
+        <AddCircleIcon sx={{ fontSize: 50 }} />
+      </Fab>
+
+      <CommonModal
+        open={openAddDue}
+        setOpen={setOpenAddDue}
+        // key={"addduemodal"}
+      >
         <Stack m={3} spacing={2}>
           <Typography
             variant="h4"
@@ -23,7 +29,7 @@ function AddCustomer() {
             textAlign={"center"}
             mb={2}
           >
-            Thêm Khách Hàng
+            Thêm Phiếu Nợ
           </Typography>
           <TextField
             label="Tên"
@@ -32,13 +38,14 @@ function AddCustomer() {
             fullWidth
           />
           <TextField
-            label="Số Điện Thoại"
+            label="Số Nợ"
             InputLabelProps={{ shrink: true, style: { fontSize: 25 } }}
             InputProps={{ style: { fontSize: 25 } }}
             fullWidth
           />
           <TextField
-            label="Địa Chỉ"
+            label="Ngày"
+            type="datetime-local"
             InputLabelProps={{ shrink: true, style: { fontSize: 25 } }}
             InputProps={{ style: { fontSize: 25, marginBottom: 20 } }}
             fullWidth
@@ -56,4 +63,4 @@ function AddCustomer() {
     </Fragment>
   );
 }
-export default AddCustomer;
+export default AddDueButton;
