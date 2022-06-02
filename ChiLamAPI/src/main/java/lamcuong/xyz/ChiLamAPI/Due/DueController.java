@@ -8,11 +8,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/due")
 public class DueController {
     @Autowired
     DueService dueService;
 
-    @GetMapping("/due")
+    @GetMapping
     @CrossOrigin
     public ResponseEntity<List<GetDueResponse>> GetDue(GetDueRequest getDueRequest) {
         List<GetDueResponse> result;

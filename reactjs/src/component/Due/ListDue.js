@@ -9,7 +9,7 @@ import { Box } from "@mui/system";
 
 function ListDue() {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const [fetching, setFetching] = useState(false);
   const [listDue, setListDue] = useState([]);

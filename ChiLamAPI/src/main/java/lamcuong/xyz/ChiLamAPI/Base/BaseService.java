@@ -9,9 +9,9 @@ public class BaseService<T> {
     @Autowired
     protected JdbcTemplate jdbcTemplate;
 
-    protected String PaginatingQuery(String orderBy, Integer itemPerPage, Integer page) {
+    protected String PaginatingQuery(Integer itemPerPage, Integer page) {
         if (itemPerPage != null && page != null) {
-            return " ORDER BY " + orderBy + " LIMIT " + itemPerPage + " OFFSET " + ((page - 1) * itemPerPage);
+            return " LIMIT " + itemPerPage + " OFFSET " + (page * itemPerPage);
         } else return "";
     }
 

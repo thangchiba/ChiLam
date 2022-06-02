@@ -9,4 +9,7 @@ import java.util.Date;
 @Setter
 public class GetCustomerRequest {
     private String customerId;
+    private Integer itemPerPage;
+    private Integer page;
+    private String orderBy;
 }
