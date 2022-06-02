@@ -1,11 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
 import DueAPI from "../HTTP_Request/DueAPI";
 import DueItem from "./DueItem";
-import InfiniteScroll from "react-infinite-scroller";
-import { Button, CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
-// import InfiniteScroll from "react-infinite-scroller";
 
 function ListDue() {
   const dispatch = useDispatch();
