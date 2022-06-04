@@ -3,7 +3,6 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Fragment, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { customerAction } from "../../store/CustomerSlice";
-import axiosClient from "../HTTP_Request/axiosClient";
 import customerAPI from "../HTTP_Request/CustomerAPI";
 import CommonModal from "../UIComponent/CommonModal";
 function AddCustomer() {

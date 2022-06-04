@@ -15,6 +15,13 @@ const CustomerSlice = createSlice({
       const { customer } = action.payload;
       state.listCustomer.push(customer);
     },
+    updateCustomer(state, action) {
+      const { customer } = action.payload;
+      const index = state.listCustomer.findIndex(
+        (item) => item.customerId === customer.customerId
+      );
+      state.listCustomer[index] = customer;
+    },
   },
 });
 

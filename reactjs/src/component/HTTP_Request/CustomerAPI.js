@@ -8,6 +8,10 @@ class CustomerAPI {
     const url = "/customer";
     return axiosClient.post(url, data);
   };
+  updateCustomer = (data) => {
+    const url = "/customer";
+    return axiosClient.put(url, data);
+  };
 }
 const customerAPI = new CustomerAPI();
 export default customerAPI;

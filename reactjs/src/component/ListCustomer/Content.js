@@ -41,7 +41,7 @@ function Content() {
 
   //Customer Detail Modal
   const [openDetail, setOpenDetail] = useState(false);
-  const [selectedCustomer, selectCustomer] = useState({});
+  const [selectedCustomer, selectCustomer] = useState();
   function handleSelectCustomer(customer) {
     setOpenDetail(true);
     selectCustomer(customer);
