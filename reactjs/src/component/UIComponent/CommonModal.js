@@ -13,7 +13,7 @@ const StyledBox = styled(Box)({
 });
 
 function CommonModal(props) {
-  const { setOpen } = props;
+  const { setOpen, onClose } = props;
   return (
     <Modal
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -24,7 +24,10 @@ function CommonModal(props) {
         <Box display="flex" justifyContent="end">
           <CloseOutlinedIcon
             fontSize="large"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              onClose();
+            }}
             cursor="pointer"
           />
         </Box>

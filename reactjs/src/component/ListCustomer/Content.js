@@ -1,20 +1,19 @@
 import styled from "@emotion/styled";
-import { AddCircleOutlined } from "@mui/icons-material";
-import { Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { Grid, Modal, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
-import { Box } from "@mui/system";
 import { Fragment, useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
 import CountDays from "../../CommonMethod/DateTimeCalc";
 import { customerAction } from "../../store/CustomerSlice";
 import customerAPI from "../HTTP_Request/CustomerAPI";
+import CustomerDetail from "./CustomerDetail";
 
 const StyledContainer = styled(Grid)({
   marginBlock: 5,
   height: 45,
   borderRadius: 5,
   borderWidth: 1,
+  cursor: "pointer",
 });
 
 const StyledGrid = styled(Grid)({
@@ -33,15 +32,33 @@ function Content() {
   useEffect(() => {
     async function getCustomer() {
       const response = await customerAPI.getCustomer({
-        orderBy: "customer_id",
+        orderBy: "customer_id desc",
       });
       dispatch(customerAction.setListCustomer({ listCustomer: response }));
     }
     getCustomer();
   }, []);
 
+  //Customer Detail Modal
+  const [openDetail, setOpenDetail] = useState(false);
+  const [selectedCustomer, selectCustomer] = useState({});
+  function handleSelectCustomer(customer) {
+    setOpenDetail(true);
+    selectCustomer(customer);
+  }
+  function handleCloseModal() {
+    selectCustomer(null);
+  }
   return (
     <Fragment>
+      {selectedCustomer && (
+        <CustomerDetail
+          open={openDetail}
+          setOpen={setOpenDetail}
+          customer={selectedCustomer}
+          onClose={handleCloseModal}
+        />
+      )}
       <StyledContainer
         container
         sx={{ position: "sticky", backgroundColor: blue[200] }}
@@ -65,7 +82,7 @@ function Content() {
             <StyledContainer
               container
               key={customer.customerId}
-              // onClick={() => handleClickDueContent(due)}
+              onClick={() => handleSelectCustomer(customer)}
             >
               <StyledGrid item xs={6}>
                 {/* <Avatar src={linkImage} /> */}

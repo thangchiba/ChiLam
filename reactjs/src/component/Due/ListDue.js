@@ -20,7 +20,7 @@ function ListDue() {
     const response = await DueAPI.getDue({
       itemPerPage: 10,
       page: page,
-      orderBy: "due_id",
+      orderBy: "due_id desc",
     });
     console.log(response);
     if (response.length == 0) {
