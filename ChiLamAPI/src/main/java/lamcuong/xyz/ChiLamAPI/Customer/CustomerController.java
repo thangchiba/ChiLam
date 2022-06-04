@@ -1,5 +1,6 @@
 package lamcuong.xyz.ChiLamAPI.Customer;
 
+import lamcuong.xyz.ChiLamAPI.Base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/customer")
-public class CustomerController {
+public class CustomerController extends BaseController {
     @Autowired
     CustomerService customerService;
 

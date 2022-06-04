@@ -19,13 +19,13 @@ public class CustomerService extends BaseService<String> {
             WHERE_CLAUSE += " AND customer_id = ?";
             params.add(request.getCustomerId());
         }
-        String PAGINATING_QUERY = PaginatingQuery(request.getItemPerPage(), request.getPage());
+//        String PAGINATING_QUERY = PaginatingQuery(request.getItemPerPage(), request.getPage());
         String ORDER_BY = (request.getOrderBy() != null) ? " ORDER BY " + request.getOrderBy() : "";
         String SQL_QUERY = new StringBuilder()
                 .append("SELECT * " +
                         "FROM M_CUSTOMER " +
                         "WHERE DEL_FLG IS NOT TRUE " +
-                        WHERE_CLAUSE + ORDER_BY + PAGINATING_QUERY).toString();
+                        WHERE_CLAUSE + ORDER_BY).toString();
         try {
             List<GetCustomerResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
             return result;

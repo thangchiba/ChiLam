@@ -27,28 +27,17 @@ const StyledGrid = styled(Grid)({
 });
 
 function Content() {
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasmore] = useState(true);
-  const [fetching, setFetching] = useState(false);
   const [listCustomer, setListCustomer] = useState([]);
-  async function loadMore() {
-    console.log("loadmore");
-    if (fetching) return;
-    setFetching(true);
-    setPage(page + 1);
-    const response = await customerAPI.getCustomer({
-      itemPerPage: 10,
-      page: page,
-      orderBy: "customer_id",
-    });
-    console.log(response);
-    if (response.length == 0) {
-      console.log("no has more");
-      setHasmore(false);
+  useEffect(() => {
+    async function getCustomer() {
+      const response = await customerAPI.getCustomer({
+        orderBy: "customer_id",
+      });
+      setListCustomer(response);
     }
-    setListCustomer([...listCustomer, ...response]);
-    setFetching(false);
-  }
+    getCustomer();
+  }, []);
+
   return (
     <Fragment>
       <StyledContainer
@@ -65,12 +54,7 @@ function Content() {
           Thời Gian
         </StyledGrid>
       </StyledContainer>
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={loadMore}
-        hasMore={hasMore}
-        loader={<CircularProgress color="success" />}
-      >
+      <StyledContainer>
         {listCustomer.map((customer) => {
           // const linkImage = require("../../static/image/icon/".concat(
           //   customer.image
@@ -98,7 +82,7 @@ function Content() {
             </StyledContainer>
           );
         })}
-      </InfiniteScroll>
+      </StyledContainer>
     </Fragment>
   );
 }
