@@ -6,13 +6,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class CustomerService extends BaseService<String> {
-    protected RowMapper rowMapper = new BeanPropertyRowMapper<GetCustomerResponse>(GetCustomerResponse.class);
 
-    public List<GetCustomerResponse> getCustomer(GetCustomerRequest request) {
+    public List<GetCustomerResponse> GetCustomer(GetCustomerRequest request) {
         String WHERE_CLAUSE = "";
         ArrayList<Object> params = new ArrayList<Object>();
         if (request.getCustomerId() != null) {
@@ -26,6 +26,7 @@ public class CustomerService extends BaseService<String> {
                         "FROM M_CUSTOMER " +
                         "WHERE DEL_FLG IS NOT TRUE " +
                         WHERE_CLAUSE + ORDER_BY).toString();
+        RowMapper<GetCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(GetCustomerResponse.class);
         try {
             List<GetCustomerResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
             return result;
@@ -35,5 +36,27 @@ public class CustomerService extends BaseService<String> {
         }
     }
 
-
+    public AddCustomerResponse AddCustomer(AddCustomerRequest request) {
+        String SQL_QUERY = "INSERT INTO public.m_customer(\n" +
+                "customer_id, customer_name, phone, address, total_money, last_pay_date, create_date, update_date, del_flg)\n" +
+                "VALUES (nextval('customer_id_seq'),?, ?, ?, ?, ?, ?, ?, ?) RETURNING * ;\n" +
+                "";
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(request.getCustomerName());
+        params.add(request.getPhone());
+        params.add(request.getAddress());
+        params.add(0);
+        params.add(null);
+        params.add(new Date());
+        params.add(null);
+        params.add(false);
+        RowMapper<AddCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(AddCustomerResponse.class);
+        try {
+            AddCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
