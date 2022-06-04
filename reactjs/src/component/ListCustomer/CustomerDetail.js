@@ -5,11 +5,12 @@ function CustomerDetail({ open, setOpen, onClose, customer }) {
   const [customerName, setCustomerName] = useState(customer.customerName);
   const [phone, setPhone] = useState(customer.phone);
   const [address, setAddress] = useState(customer.address);
+  const [totalMoney, setTotalMoney] = useState(customer.totalMoney);
   const [lastPayDate, setLastPayDate] = useState(customer.lastPayDate);
   useEffect(() => {}, [customer]);
   return (
     <CommonModal open={open} setOpen={setOpen} onClose={onClose}>
-      <Stack px={3} spacing={2}>
+      <Stack px={3} spacing={1.5}>
         <Typography variant="h3" color="secondary" textAlign="center">
           {customer.customerName}
         </Typography>
@@ -28,6 +29,7 @@ function CustomerDetail({ open, setOpen, onClose, customer }) {
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
+        <TextField label="Số Tiền Đang Nợ" value={totalMoney} />
         <TextField label="Thanh Toán Gần Đây" value={lastPayDate} />
         {/* <Stack flexDirection={"row"}> */}
         <Button variant="outlined" size="large" color="success">

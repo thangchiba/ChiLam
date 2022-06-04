@@ -59,4 +59,25 @@ public class CustomerService extends BaseService<String> {
             return null;
         }
     }
+
+    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
+        String SQL_QUERY = "UPDATE public.m_customer\n" +
+                " SET customer_name=?, phone=?, address=?,update_date=?" +
+                " WHERE customer_id = ? RETURNING *";
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(request.getCustomerName());
+        params.add(request.getPhone());
+        params.add(request.getAddress());
+        params.add(new Date());
+        params.add(request.getCustomerId());
+        RowMapper<UpdateCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
+        try {
+            UpdateCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

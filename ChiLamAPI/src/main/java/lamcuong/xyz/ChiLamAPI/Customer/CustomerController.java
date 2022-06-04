@@ -28,4 +28,11 @@ public class CustomerController extends BaseController {
         result = customerService.AddCustomer(request);
         return ResponseEntity.ok(result);
     }
+    @PutMapping
+    @CrossOrigin
+    public ResponseEntity<UpdateCustomerResponse> UpdateCustomer(@RequestBody UpdateCustomerRequest request) {
+        UpdateCustomerResponse result;
+        result = customerService.UpdateCustomer(request);
+        return ResponseEntity.ok(result);
+    }
 }
