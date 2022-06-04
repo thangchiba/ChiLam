@@ -46,9 +46,9 @@ public class CustomerService extends BaseService<String> {
         params.add(request.getPhone());
         params.add(request.getAddress());
         params.add(0);
-        params.add(null);
         params.add(new Date());
-        params.add(null);
+        params.add(new Date());
+        params.add(new Date());
         params.add(false);
         RowMapper<AddCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(AddCustomerResponse.class);
         try {

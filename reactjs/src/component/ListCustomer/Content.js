@@ -5,6 +5,7 @@ import { blue } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import { useDispatch, useSelector } from "react-redux";
 import CountDays from "../../CommonMethod/DateTimeCalc";
 import { customerAction } from "../../store/CustomerSlice";
 import customerAPI from "../HTTP_Request/CustomerAPI";
@@ -27,13 +28,14 @@ const StyledGrid = styled(Grid)({
 });
 
 function Content() {
-  const [listCustomer, setListCustomer] = useState([]);
+  const dispatch = useDispatch();
+  const listCustomer = useSelector((redux) => redux.customer.listCustomer);
   useEffect(() => {
     async function getCustomer() {
       const response = await customerAPI.getCustomer({
         orderBy: "customer_id",
       });
-      setListCustomer(response);
+      dispatch(customerAction.setListCustomer({ listCustomer: response }));
     }
     getCustomer();
   }, []);

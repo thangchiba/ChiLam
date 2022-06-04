@@ -1,39 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const InitialState = {
-  listCustomer: [
-    //   {
-    //     id: "c1",
-    //     name: "Tự Long",
-    //     image: "tulong.jpeg",
-    //   },
-    //   {
-    //     id: "c2",
-    //     name: "Xuân Bắc",
-    //     image: "xuanbac.jpeg",
-    //   },
-    //   {
-    //     id: "c3",
-    //     name: "Xuân Hinh",
-    //     image: "xuanhinh.jpeg",
-    //   },
-    //   {
-    //     id: "c4",
-    //     name: "Thắng",
-    //     image: "chienthang.webp",
-    //   },
-  ],
+  listCustomer: [],
 };
 const CustomerSlice = createSlice({
   name: "customer",
   initialState: InitialState,
   reducers: {
-    // changeLoginState(state){
-    //     state.isLoggedIn = !state.isLoggedIn;
-    // }
     setListCustomer(state, action) {
       const { listCustomer } = action.payload;
       state.listCustomer = listCustomer;
+    },
+    addCustomer(state, action) {
+      const { customer } = action.payload;
+      state.listCustomer.push(customer);
     },
   },
 });
