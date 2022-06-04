@@ -13,7 +13,7 @@ const CustomerSlice = createSlice({
     },
     addCustomer(state, action) {
       const { customer } = action.payload;
-      state.listCustomer.push(customer);
+      state.listCustomer.unshift(customer);
     },
     updateCustomer(state, action) {
       const { customer } = action.payload;
@@ -21,6 +21,12 @@ const CustomerSlice = createSlice({
         (item) => item.customerId === customer.customerId
       );
       state.listCustomer[index] = customer;
+    },
+    deleteCustomer(state, action) {
+      const { customer } = action.payload;
+      state.listCustomer = state.listCustomer.filter(
+        (item) => item.customerId !== customer.customerId
+      );
     },
   },
 });

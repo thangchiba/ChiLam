@@ -35,4 +35,11 @@ public class CustomerController extends BaseController {
         result = customerService.UpdateCustomer(request);
         return ResponseEntity.ok(result);
     }
+    @DeleteMapping
+    @CrossOrigin
+    public ResponseEntity<DeleteCustomerResponse> DeleteCustomer(@RequestBody DeleteCustomerRequest request) {
+        DeleteCustomerResponse result;
+        result = customerService.DeleteCustomer(request);
+        return ResponseEntity.ok(result);
+    }
 }

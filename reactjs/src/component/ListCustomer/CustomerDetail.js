@@ -24,6 +24,16 @@ function CustomerDetail({ open, setOpen, onClose, customer }) {
     console.log(response);
     setOpen(false);
   }
+  async function handleDeleteCustomer() {
+    let data = {
+      customerId: customer.customerId,
+    };
+    let response = await customerAPI.deleteCustomer(data);
+    if (response)
+      dispatch(customerAction.deleteCustomer({ customer: response }));
+    console.log(response);
+    setOpen(false);
+  }
   useEffect(() => {}, [customer]);
   return (
     <CommonModal open={open} setOpen={setOpen} onClose={onClose}>
@@ -57,7 +67,12 @@ function CustomerDetail({ open, setOpen, onClose, customer }) {
         >
           Lưu Thay Đổi
         </Button>
-        <Button variant="outlined" size="large" color="error">
+        <Button
+          variant="outlined"
+          size="large"
+          color="error"
+          onClick={handleDeleteCustomer}
+        >
           Xóa Khách Hàng
         </Button>
       </Stack>

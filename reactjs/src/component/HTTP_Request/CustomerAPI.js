@@ -12,6 +12,11 @@ class CustomerAPI {
     const url = "/customer";
     return axiosClient.put(url, data);
   };
+  deleteCustomer = (data) => {
+    const url = "/customer";
+    console.log(data);
+    return axiosClient.delete(url, { data });
+  };
 }
 const customerAPI = new CustomerAPI();
 export default customerAPI;
