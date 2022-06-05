@@ -9,9 +9,17 @@ const DueSlice = createSlice({
   name: "due",
   initialState: InitialState,
   reducers: {
+    addListDue(state, action) {
+      const { listDue } = action.payload;
+      state.listDue = state.listDue.concat(listDue);
+    },
     addDue(state, action) {
       const { due } = action.payload;
       state.listDue.unshift(due);
+    },
+    deleteDue(state, action) {
+      const { due } = action.payload;
+      state.listDue = state.listDue.filter((item) => item.dueId !== due.dueId);
     },
     openDueDetail(state, action) {
       state.dueDetail.open = true;

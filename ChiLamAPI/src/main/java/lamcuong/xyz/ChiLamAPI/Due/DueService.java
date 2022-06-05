@@ -99,19 +99,19 @@ public class DueService extends BaseService<String> {
 //        }
 //    }
 //
-//    public DeleteCustomerResponse DeleteCustomer(DeleteCustomerRequest request) {
-//        String SQL_QUERY = "UPDATE public.m_customer\n" +
-//                " SET del_flg=true" +
-//                " WHERE customer_id = ? RETURNING customer_id";
-//        ArrayList<Object> params = new ArrayList<>();
-//        params.add(request.getCustomerId());
-//        RowMapper<DeleteCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(DeleteCustomerResponse.class);
-//        try {
-//            DeleteCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-//            return result;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    public DeleteDueResponse DeleteDue(DeleteDueRequest request) {
+        String SQL_QUERY = "UPDATE public.m_due\n" +
+                " SET del_flg=true" +
+                " WHERE due_id = ? RETURNING due_id";
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(request.getDueId());
+        RowMapper<DeleteDueResponse> rowMapper = new BeanPropertyRowMapper<>(DeleteDueResponse.class);
+        try {
+            DeleteDueResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -23,14 +23,21 @@ function Header() {
   return (
     <Fragment>
       <StyledContainer container>
-        <StyledGrid item xs={5}>
+        <StyledGrid item xs={5} sm={4}>
           Khách Hàng
         </StyledGrid>
-        <StyledGrid item xs={3}>
+
+        <StyledGrid item xs={3} sm={2}>
           Số Tiền
         </StyledGrid>
-        <StyledGrid item xs={4}>
+        <StyledGrid item sx={{ display: { xs: "none", sm: "flex" } }} sm={3}>
+          Từ Ngày
+        </StyledGrid>
+        <StyledGrid item xs={4} sm={2}>
           Thời Gian
+        </StyledGrid>
+        <StyledGrid item sx={{ display: { xs: "none", sm: "flex" } }} sm={1}>
+          Xóa
         </StyledGrid>
       </StyledContainer>
     </Fragment>

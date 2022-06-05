@@ -18,10 +18,8 @@ function AddDueButton() {
       money: money,
       createDate: createDate,
     };
-    console.log(data);
     const response = await dueAPI.addDue(data);
     if (response) dispatch(dueAction.addDue({ due: response }));
-    console.log(response);
     setOpenAddDue(false);
   }
   useEffect(() => {}, [openAddDue]);

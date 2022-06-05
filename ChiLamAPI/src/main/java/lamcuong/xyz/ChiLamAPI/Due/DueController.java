@@ -36,11 +36,11 @@ public class DueController {
 //        result = customerService.UpdateCustomer(request);
 //        return ResponseEntity.ok(result);
 //    }
-//    @DeleteMapping
-//    @CrossOrigin
-//    public ResponseEntity<DeleteCustomerResponse> DeleteCustomer(@RequestBody DeleteCustomerRequest request) {
-//        DeleteCustomerResponse result;
-//        result = customerService.DeleteCustomer(request);
-//        return ResponseEntity.ok(result);
-//    }
+    @DeleteMapping
+    @CrossOrigin
+    public ResponseEntity<DeleteDueResponse> DeleteCustomer(@RequestBody DeleteDueRequest request) {
+        DeleteDueResponse result;
+        result = dueService.DeleteDue(request);
+        return ResponseEntity.ok(result);
+    }
 }
