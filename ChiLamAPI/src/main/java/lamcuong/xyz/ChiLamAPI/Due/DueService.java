@@ -5,6 +5,7 @@ import lamcuong.xyz.ChiLamAPI.Customer.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class DueService extends BaseService<String> {
     protected RowMapper rowMapper = new BeanPropertyRowMapper<GetDueResponse>(GetDueResponse.class);
 
@@ -70,9 +72,21 @@ public class DueService extends BaseService<String> {
         params.add(LocalDateTime.now());
         params.add(false);
         RowMapper<AddDueResponse> rowMapper = new BeanPropertyRowMapper<>(AddDueResponse.class);
+
+        //Add total_money to customer
+        String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE public.m_customer SET\n" +
+                " total_money = total_money + ?,last_pay_date=? \n" +
+                " WHERE customer_id=? RETURNING * ";
+        ArrayList<Object> paramsUpdateCustomer = new ArrayList<>();
+        paramsUpdateCustomer.add(request.getMoney());
+        paramsUpdateCustomer.add(LocalDateTime.now());
+        paramsUpdateCustomer.add(request.getCustomerId());
+        RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
         try {
             AddDueResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            return result;
+            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER,rowMapperCustomer, paramsUpdateCustomer.toArray());
+            result.setUpdatedCustomer(updateUserResponse);
+             return result;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

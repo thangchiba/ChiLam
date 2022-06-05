@@ -3,6 +3,7 @@ import { Button, Fab, Stack, TextField, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { dueAction } from "../../store/DueSlice";
+import { customerAction } from "../../store/CustomerSlice";
 import CommonModal from "../UIComponent/CommonModal";
 import dueAPI from "../HTTP_Request/DueAPI";
 
@@ -19,7 +20,12 @@ function AddDueButton() {
       createDate: createDate,
     };
     const response = await dueAPI.addDue(data);
-    if (response) dispatch(dueAction.addDue({ due: response }));
+    if (response) {
+      dispatch(dueAction.addDue({ due: response }));
+      dispatch(
+        customerAction.updateCustomer({ customer: response.updatedCustomer })
+      );
+    }
     setOpenAddDue(false);
   }
   useEffect(() => {}, [openAddDue]);
