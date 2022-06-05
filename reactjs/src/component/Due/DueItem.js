@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
-import { Avatar, Divider, Grid, Typography } from "@mui/material";
-import { pink } from "@mui/material/colors";
-import { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Grid, Typography } from "@mui/material";
 import CountDays from "../../CommonMethod/DateTimeCalc";
-import { dueAction } from "../../store/DueSlice";
-import DueAPI from "../HTTP_Request/DueAPI";
 
 const StyledContainer = styled(Grid)({
   marginBlock: 5,

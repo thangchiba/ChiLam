@@ -2,9 +2,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dueAction } from "../../store/DueSlice";
 
 export default function SearchBarNew() {
   const listCustomer = useSelector((redux) => redux.customer.listCustomer);
@@ -13,9 +12,6 @@ export default function SearchBarNew() {
   function handlerChangeText(value) {
     setSearchText(value);
   }
-  useEffect(() => {
-    dispatch(dueAction.filterByCustomerName(searchText));
-  }, [searchText]);
   return (
     <Stack spacing={2} sx={{ mx: 1 }}>
       <Autocomplete

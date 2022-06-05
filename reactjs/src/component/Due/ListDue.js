@@ -1,12 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DueAPI from "../HTTP_Request/DueAPI";
 import DueItem from "./DueItem";
 
 function ListDue() {
   const dispatch = useDispatch();
+  //List Due Added from everyWhere
+  const listDueAdded = useSelector((redux) => redux.due.listDue);
   const [page, setPage] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const [fetching, setFetching] = useState(false);
@@ -37,7 +39,7 @@ function ListDue() {
       hasMore={hasMore}
       loader={<CircularProgress color="success" />}
     >
-      {listDue.map((due) => {
+      {[...listDueAdded, ...listDue].map((due) => {
         return <DueItem due={due} key={due.dueId} />;
       })}
     </InfiniteScroll>

@@ -4,6 +4,10 @@ class DueAPI {
     const url = "/due";
     return axiosClient.get(url, { params });
   };
+  addDue = (data) => {
+    const url = "/due";
+    return axiosClient.post(url, data);
+  };
 }
 const dueAPI = new DueAPI();
 export default dueAPI;

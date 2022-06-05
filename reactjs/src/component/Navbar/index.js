@@ -27,7 +27,7 @@ function Navbar() {
             <PageSelect />
             {/* <SearchBar /> */}
             <SearchBarNew />
-            <Notification />
+            {/* <Notification /> */}
           </Box>
         </StyledToolbar>
       </AppBar>

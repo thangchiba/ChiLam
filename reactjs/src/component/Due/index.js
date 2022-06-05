@@ -11,7 +11,7 @@ function Due() {
       <Filter />
       <Header />
       <ListDue />
-      <DueDetail />
+      {/* <DueDetail /> */}
     </Fragment>
   );
 }
