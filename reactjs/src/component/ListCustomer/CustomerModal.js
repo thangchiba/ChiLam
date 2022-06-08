@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { customerAction } from "../../store/CustomerSlice";
 import customerAPI from "../HTTP_Request/CustomerAPI";
 import CommonModal from "../UIComponent/CommonModal";
-function CustomerDetail({ open, setOpen, onClose, customer }) {
+function CustomerModal({ open, setOpen, onClose, customer }) {
   const dispatch = useDispatch();
   const [customerName, setCustomerName] = useState(customer.customerName);
   const [phone, setPhone] = useState(customer.phone);
@@ -79,4 +79,4 @@ function CustomerDetail({ open, setOpen, onClose, customer }) {
     </CommonModal>
   );
 }
-export default CustomerDetail;
+export default CustomerModal;

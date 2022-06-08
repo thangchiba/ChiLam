@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="customer" />}></Route>
           <Route path="/due" element={<DuePage />}></Route>
-          <Route path="/customer" element={<CustomerPage />}></Route>
+          <Route path="/customer/*" element={<CustomerPage />}></Route>
           <Route path="/pay" element={<PayPage />}></Route>
         </Routes>
       </Layout>

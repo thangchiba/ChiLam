@@ -3,6 +3,7 @@ import { Grid, Modal, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CountDays from "../../CommonMethod/DateTimeCalc";
 import { customerAction } from "../../store/CustomerSlice";
 import customerAPI from "../HTTP_Request/CustomerAPI";
@@ -28,6 +29,7 @@ const StyledGrid = styled(Grid)({
 
 function Content() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const listCustomer = useSelector((redux) => redux.customer.listCustomer);
   useEffect(() => {
     async function getCustomer() {
@@ -43,8 +45,9 @@ function Content() {
   const [openDetail, setOpenDetail] = useState(false);
   const [selectedCustomer, selectCustomer] = useState();
   function handleSelectCustomer(customer) {
-    setOpenDetail(true);
-    selectCustomer(customer);
+    // setOpenDetail(true);
+    // selectCustomer(customer);
+    navigate(`/customer/${customer.customerId}`);
   }
   function handleCloseModal() {
     selectCustomer(null);
