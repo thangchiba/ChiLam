@@ -53,9 +53,9 @@ export default function Profile() {
     console.log(response);
   }
   return (
-    <Stack px={3} spacing={1.5}>
+    <Stack px={3} spacing={1.5} sx={{ overflow: "inherit" }}>
       <Typography variant="h3" color="secondary" textAlign="center" my={3}>
-        Thông Tin Khách Hàng
+        Thông Tin
       </Typography>
       <TextField
         label="Tên Khách"
