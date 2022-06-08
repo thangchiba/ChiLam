@@ -8,16 +8,15 @@ import DueItem from "./DueItem";
 
 function ListDue() {
   const dispatch = useDispatch();
-  //List Due Added from everyWhere
   const listDue = useSelector((redux) => redux.due.listDue);
   const [page, setPage] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const [fetching, setFetching] = useState(false);
-  // const [listDue, setListDue] = useState([]);
-  useEffect(() => {}, [page]);
+
   async function loadMore() {
     if (fetching) return;
     console.log("loadmore");
+    setPage(page + 1);
     setFetching(true);
     const response = await DueAPI.getDue({
       itemPerPage: 10,
@@ -31,22 +30,19 @@ function ListDue() {
     }
     dispatch(dueAction.addListDue({ listDue: response }));
     setFetching(false);
-    setPage(page + 1);
   }
 
   return (
-    <Fragment>
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={loadMore}
-        hasMore={hasMore}
-        loader={<CircularProgress color="success" />}
-      >
-        {listDue.map((due) => {
-          return <DueItem due={due} key={due.dueId} />;
-        })}
-      </InfiniteScroll>
-    </Fragment>
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={loadMore}
+      hasMore={hasMore}
+      loader={<CircularProgress color="success" />}
+    >
+      {listDue.map((due) => {
+        return <DueItem due={due} key={due.dueId} />;
+      })}
+    </InfiniteScroll>
   );
 }
 

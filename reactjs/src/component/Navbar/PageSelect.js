@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { MenuItem, Select, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import HomeIcon from "@mui/icons-material/Home";
 import PaidIcon from "@mui/icons-material/Paid";
@@ -14,9 +14,10 @@ const StyledSelect = styled(Select)({
 const StyledItem = styled(MenuItem)({});
 
 function PageSelect() {
+  const param = useParams();
   const [category, setCategory] = useState("customer");
   const navigate = useNavigate();
-  function handlerChange(event) {
+  function handleChangeCategory(event) {
     setCategory(event.target.value);
     navigate("/" + event.target.value);
   }
@@ -24,7 +25,7 @@ function PageSelect() {
     <StyledSelect
       value={category}
       inputProps={{ "aria-label": "Without label" }}
-      onChange={handlerChange}
+      onChange={handleChangeCategory}
       sx={{ display: { xs: "none", sm: "flex" } }}
     >
       <StyledItem value="customer">

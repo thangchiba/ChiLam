@@ -84,16 +84,16 @@ public class DueService extends BaseService<String> {
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
         try {
             AddDueResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER,rowMapperCustomer, paramsUpdateCustomer.toArray());
+            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
             result.setUpdatedCustomer(updateUserResponse);
-             return result;
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-//    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
+    //    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
 //        String SQL_QUERY = "UPDATE public.m_customer\n" +
 //                " SET customer_name=?, phone=?, address=?,update_date=?" +
 //                " WHERE customer_id = ? RETURNING *";
@@ -120,8 +120,23 @@ public class DueService extends BaseService<String> {
         ArrayList<Object> params = new ArrayList<>();
         params.add(request.getDueId());
         RowMapper<DeleteDueResponse> rowMapper = new BeanPropertyRowMapper<>(DeleteDueResponse.class);
+
+        //sub total_money to customer
+        String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE M_CUSTOMER AS MC\n" +
+                "SET TOTAL_MONEY = TOTAL_MONEY - MD.MONEY,\n" +
+                " LAST_PAY_DATE = ? " +
+                "FROM M_DUE AS MD\n" +
+                "WHERE MC.CUSTOMER_ID = MD.CUSTOMER_ID\n" +
+                "AND MD.DUE_ID = ? RETURNING * ;";
+        ArrayList<Object> paramsUpdateCustomer = new ArrayList<>();
+        paramsUpdateCustomer.add(LocalDateTime.now());
+        paramsUpdateCustomer.add(request.getDueId());
+        RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
+
         try {
             DeleteDueResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
+            result.setUpdatedCustomer(updateUserResponse);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

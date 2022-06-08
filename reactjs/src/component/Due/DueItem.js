@@ -6,6 +6,7 @@ import dueAPI from "../HTTP_Request/DueAPI";
 import { dueAction } from "../../store/DueSlice";
 import { useDispatch } from "react-redux";
 import { GetDateVietnamese } from "../../CommonMethod/DateTimeCalc";
+import { customerAction } from "../../store/CustomerSlice";
 const StyledContainer = styled(Grid)({
   marginBlock: 5,
   // backgroundColor:orange[300],
@@ -33,7 +34,12 @@ function DueItem({ due }) {
     };
     const response = await dueAPI.deleteDue(data);
     console.log(response);
-    if (response) dispatch(dueAction.deleteDue({ due: response }));
+    if (response) {
+      dispatch(dueAction.deleteDue({ due: response }));
+      dispatch(
+        customerAction.updateCustomer({ customer: response.updatedCustomer })
+      );
+    }
   }
   return (
     <StyledContainer
