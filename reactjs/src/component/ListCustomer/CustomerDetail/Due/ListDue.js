@@ -37,15 +37,14 @@ function ListDue() {
   }
 
   return (
-    <div style={{ height: "600px", overflow: "auto" }} ref={scrollParentRef}>
+    <div style={{ height: "400px", overflow: "auto" }} ref={scrollParentRef}>
       <InfiniteScroll
         pageStart={0}
         loadMore={loadMore}
         hasMore={hasMore}
         threshold={50}
         loader={<CircularProgress color="success" />}
-        getScrollParent={() => scrollParentRef}
-        key="abcdefg"
+        useWindow={false}
       >
         {[...listDueRedux, ...listDue].map((due) => {
           return <DueItem due={due} key={due.dueId} />;

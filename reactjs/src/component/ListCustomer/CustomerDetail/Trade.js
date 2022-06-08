@@ -11,7 +11,7 @@ import Due from "./Due";
 export default function Trade() {
   const [mode, setMode] = useState("due");
   return (
-    <Stack px={3} spacing={1.5} sx={{ overflow: "hidden" }}>
+    <Stack px={3} spacing={1.5} sx={{ display: "block", overflow: "auto" }}>
       <Typography variant="h3" color="primary" textAlign="center" my={3}>
         Thanh Toán
       </Typography>
