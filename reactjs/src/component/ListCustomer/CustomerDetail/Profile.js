@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 export default function Profile() {
   const dispatch = useDispatch();
   const { customerId } = useParams();
+  const { totalMoney, lastPayDate } = {};
   const [customer, setCustomer] = useState({
     customerId: "",
     customerName: "",

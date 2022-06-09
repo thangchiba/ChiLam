@@ -9,7 +9,7 @@ import ListDue from "../../Due/ListDue";
 import Due from "./Due";
 
 export default function Trade() {
-  const [mode, setMode] = useState("due");
+  const [showMode, setShowMode] = useState("all");
   return (
     <Stack px={3} spacing={1.5} sx={{ display: "block", overflow: "auto" }}>
       <Typography variant="h3" color="primary" textAlign="center" my={3}>
@@ -18,15 +18,16 @@ export default function Trade() {
 
       <ToggleButtonGroup
         color="primary"
-        value={mode}
+        value={showMode}
         exclusive
-        onChange={(e) => setMode(e.target.value)}
+        onChange={(e) => setShowMode(e.target.value)}
       >
+        <ToggleButton value="all">Tất Cả</ToggleButton>
         <ToggleButton value="due">Ghi Nợ</ToggleButton>
         <ToggleButton value="pay">Thanh Toán</ToggleButton>
       </ToggleButtonGroup>
 
-      {mode === "due" && <Due />}
+      {showMode === "due" && <Due />}
     </Stack>
   );
 }
