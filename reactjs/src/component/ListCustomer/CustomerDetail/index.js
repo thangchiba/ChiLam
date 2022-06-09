@@ -17,7 +17,7 @@ export default function CustomerDetail() {
       return response[0];
     }
     getCustomer();
-  }, []);
+  }, [customerId]);
   return (
     <Fragment>
       <Grid container>

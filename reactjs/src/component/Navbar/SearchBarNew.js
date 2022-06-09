@@ -2,30 +2,40 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import customerAPI from "../HTTP_Request/CustomerAPI";
 
 export default function SearchBarNew() {
-  const listCustomer = useSelector((redux) => redux.customer.listCustomer);
+  const listCustomerRedux = useSelector((redux) => redux.customer.listCustomer);
+  const [listCustomer, setListCustomer] = useState([]);
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
   function handlerChangeText(value) {
     setSearchText(value);
   }
+  useEffect(() => {
+    async function getCustomer() {
+      const response = await customerAPI.getCustomer();
+      if (response) setListCustomer(response);
+    }
+    getCustomer();
+  }, []);
   return (
     <Stack spacing={2} sx={{ mx: 1 }}>
       <Autocomplete
-        freeSolo
         selectOnFocus
         sx={{ width: 170 }}
-        options={listCustomer.map((option) => option.name)}
+        options={listCustomer.map((option) => option)}
+        getOptionLabel={(option) => option.customerName}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Tìm Khách Hàng"
             value={searchText}
             onChange={(e) => {
-              console.log(e.target.value);
               handlerChangeText(e);
             }}
           />
@@ -33,6 +43,7 @@ export default function SearchBarNew() {
         onChange={(e, value) => {
           console.log(value);
           handlerChangeText(value);
+          navigate(`/customer/${value.customerId}`);
         }}
       />
     </Stack>
