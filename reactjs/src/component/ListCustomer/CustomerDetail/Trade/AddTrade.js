@@ -10,36 +10,43 @@ import {
 } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { dueAction } from "../../../store/DueSlice";
-import { customerAction } from "../../../store/CustomerSlice";
-import CommonModal from "../../UIComponent/CommonModal";
-import dueAPI from "../../HTTP_Request/DueAPI";
+import { tradeAction } from "../../../../store/TradeSlice";
+import { customerAction } from "../../../../store/CustomerSlice";
+import CommonModal from "../../../UIComponent/CommonModal";
+import TradeAPI from "../../../HTTP_Request/TradeAPI";
 
-function AddTrade() {
+function AddTrade({ customer, setCustomer, addTrade }) {
   const dispatch = useDispatch();
   const [mode, setMode] = useState("due");
-  const [openAddDue, setOpenAddDue] = useState(false);
-  const [customerId, setCustomerId] = useState("");
+  const [openAddTrade, setOpenAddTrade] = useState(false);
+  const [customerId, setCustomerId] = useState("11000013");
   const [money, setMoney] = useState("");
-  const [createDate, setCreateDate] =
-    useState();
-    // new Date().toISOString().substring(0, 16)
-  async function handleAddDue() {
+  const [createDate, setCreateDate] = useState();
+  // new Date().toISOString().substring(0, 16)
+  async function handleAddTrade() {
     const data = {
       customerId: customerId,
+      isDue: mode == "due",
       money: money,
       createDate: createDate,
     };
-    const response = await dueAPI.addDue(data);
+    const response = await TradeAPI.addTrade(data);
     if (response) {
-      dispatch(dueAction.addDue({ due: response }));
-      dispatch(
-        customerAction.updateCustomer({ customer: response.updatedCustomer })
-      );
+      // dispatch(
+      //   tradeAction.addTrade({
+      //     trade: response,
+      //     customer: response.updatedCustomer,
+      //   })
+      // );
+      // dispatch(
+      //   customerAction.updateCustomer({ customer: response.updatedCustomer })
+      // );
+      addTrade(response);
+      setCustomer(response.updatedCustomer);
     }
-    setOpenAddDue(false);
+    setOpenAddTrade(false);
   }
-  useEffect(() => {}, [openAddDue]);
+  useEffect(() => {}, [openAddTrade]);
   return (
     <Fragment>
       <Fab
@@ -47,15 +54,15 @@ function AddTrade() {
         color="secondary"
         aria-label="add"
         sx={{ position: "fixed", bottom: 15, right: 10 }}
-        onClick={() => setOpenAddDue(true)}
+        onClick={() => setOpenAddTrade(true)}
       >
         <AddCircleIcon sx={{ fontSize: 50 }} />
       </Fab>
 
       <CommonModal
-        open={openAddDue}
-        setOpen={setOpenAddDue}
-        // key={"addduemodal"}
+        open={openAddTrade}
+        setOpen={setOpenAddTrade}
+        // key={"addTrademodal"}
       >
         <Stack m={3} spacing={2}>
           {/* <Typography
@@ -120,7 +127,7 @@ function AddTrade() {
             color="success"
             size="large"
             sx={{ height: 70 }}
-            onClick={handleAddDue}
+            onClick={handleAddTrade}
           >
             Xác Nhận
           </Button>

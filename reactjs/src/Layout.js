@@ -1,6 +1,5 @@
 import { Box } from "@mui/system";
 import AddDueButton from "./component/Due/AddDueButton";
-import AddTrade from "./component/ListCustomer/CustomerDetail/AddTrade";
 import Navbar from "./component/Navbar";
 
 function Layout(props) {
@@ -9,7 +8,6 @@ function Layout(props) {
       <Navbar />
       {props.children}
       {/* <AddDueButton /> */}
-      <AddTrade />
     </Box>
   );
 }
