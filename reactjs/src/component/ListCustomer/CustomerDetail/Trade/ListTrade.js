@@ -46,6 +46,14 @@ function ListTrade({ customer, setCustomer }) {
   function addTrade(trade) {
     console.log(trade);
     setListTrade([trade, ...listTrade]);
+    setCustomer(trade.updatedCustomer);
+  }
+  function removeTrade(trade) {
+    console.log(trade.trade_id);
+    setListTrade([
+      ...listTrade.filter((item) => item.tradeId !== trade.tradeId),
+    ]);
+    setCustomer(trade.updatedCustomer);
   }
   return (
     <Fragment>
@@ -65,6 +73,7 @@ function ListTrade({ customer, setCustomer }) {
                 key={trade.tradeId}
                 customer={customer}
                 setCustomer={setCustomer}
+                removeTrade={removeTrade}
               />
             );
           })}

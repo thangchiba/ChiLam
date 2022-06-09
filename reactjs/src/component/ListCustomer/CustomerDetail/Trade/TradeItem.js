@@ -1,16 +1,13 @@
 import styled from "@emotion/styled";
-import { Grid, Typography } from "@mui/material";
-import CountDays from "../../../../CommonMethod/DateTimeCalc";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import tradeAPI from "../../../HTTP_Request/TradeAPI";
-import { tradeAction } from "../../../../store/TradeSlice";
-import { useDispatch } from "react-redux";
-import { GetDateVietnamese } from "../../../../CommonMethod/DateTimeCalc";
-import { customerAction } from "../../../../store/CustomerSlice";
+import { Grid, Typography } from "@mui/material";
 import { green, pink } from "@mui/material/colors";
+import CountDays, {
+  GetDateVietnamese,
+} from "../../../../CommonMethod/DateTimeCalc";
+import tradeAPI from "../../../HTTP_Request/TradeAPI";
 const StyledContainer = styled(Grid)({
   marginBlock: 5,
-  // backgroundColor:orange[300],
   height: 45,
   borderRadius: 5,
   borderWidth: 1,
@@ -26,21 +23,15 @@ const StyledGrid = styled(Grid)({
   borderRight: "0.1px solid gray",
 });
 
-function TradeItem({ trade, customer, setCustomer }) {
-  const dispatch = useDispatch();
+function TradeItem({ trade, removeTrade }) {
   let countDays = CountDays(trade.createDate);
   async function handleDeleteTrade() {
     const data = {
       tradeId: trade.tradeId,
     };
     const response = await tradeAPI.deleteTrade(data);
-    console.log(response);
     if (response) {
-      dispatch(tradeAction.deleteTrade({ trade: response }));
-      // dispatch(
-      //   customerAction.updateCustomer({ customer: response.updatedCustomer })
-      // );
-      setCustomer(response.updatedCustomer);
+      removeTrade(response);
     }
   }
   return (
@@ -48,7 +39,6 @@ function TradeItem({ trade, customer, setCustomer }) {
       container
       backgroundColor={trade.isDue ? pink[50] : green[50]}
       key={trade.tradeId}
-      // onClick={() => handleClickTradeContent(trade)}
     >
       <StyledGrid item xs={4} sm={3}>
         <Typography variant="h5">{trade.money}</Typography>

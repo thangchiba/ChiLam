@@ -1,30 +1,20 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import customerAPI from "../../HTTP_Request/CustomerAPI";
+import { useDispatch } from "react-redux";
 import { customerAction } from "../../../store/CustomerSlice";
-import { useParams } from "react-router-dom";
+import customerAPI from "../../HTTP_Request/CustomerAPI";
 
 export default function Profile({ customer, setCustomer }) {
   const dispatch = useDispatch();
-  // const [customer, setCustomer] = useState(props.customer);
 
   function handleChangeCustomer(field, value) {
     setCustomer({ ...customer, [field]: value });
   }
   async function handleUpdateCustomer() {
     let data = {
-      //   customerId: customer.customerId,
-      // customerId: customer.customerId,
-      // customerName: customer.customerName,
-      // phone: customer.phone,
-      // address: customer.address,
       ...customer,
     };
     let response = await customerAPI.updateCustomer(data);
-    if (response)
-      // dispatch(customerAction.updateCustomer({ customer: response }));
-      setCustomer(response);
+    if (response) setCustomer(response);
   }
   async function handleDeleteCustomer() {
     let data = {
@@ -34,7 +24,6 @@ export default function Profile({ customer, setCustomer }) {
     if (response) {
       dispatch(customerAction.deleteCustomer({ customer: response }));
     }
-    console.log(response);
   }
   return (
     <Stack px={3} spacing={1.5} sx={{ overflow: "inherit" }}>

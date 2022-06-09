@@ -6,47 +6,32 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Typography,
 } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
-import { tradeAction } from "../../../../store/TradeSlice";
-import { customerAction } from "../../../../store/CustomerSlice";
-import CommonModal from "../../../UIComponent/CommonModal";
 import TradeAPI from "../../../HTTP_Request/TradeAPI";
+import CommonModal from "../../../UIComponent/CommonModal";
 
 function AddTrade({ customer, setCustomer, addTrade }) {
   const dispatch = useDispatch();
   const [mode, setMode] = useState("due");
   const [openAddTrade, setOpenAddTrade] = useState(false);
-  const [customerId, setCustomerId] = useState("11000013");
   const [money, setMoney] = useState("");
   const [createDate, setCreateDate] = useState();
   // new Date().toISOString().substring(0, 16)
   async function handleAddTrade() {
     const data = {
-      customerId: customerId,
+      customerId: customer.customerId,
       isDue: mode == "due",
       money: money,
-      createDate: createDate,
+      createDate: createDate || new Date(),
     };
     const response = await TradeAPI.addTrade(data);
     if (response) {
-      // dispatch(
-      //   tradeAction.addTrade({
-      //     trade: response,
-      //     customer: response.updatedCustomer,
-      //   })
-      // );
-      // dispatch(
-      //   customerAction.updateCustomer({ customer: response.updatedCustomer })
-      // );
       addTrade(response);
-      setCustomer(response.updatedCustomer);
     }
     setOpenAddTrade(false);
   }
-  useEffect(() => {}, [openAddTrade]);
   return (
     <Fragment>
       <Fab
@@ -59,11 +44,7 @@ function AddTrade({ customer, setCustomer, addTrade }) {
         <AddCircleIcon sx={{ fontSize: 50 }} />
       </Fab>
 
-      <CommonModal
-        open={openAddTrade}
-        setOpen={setOpenAddTrade}
-        // key={"addTrademodal"}
-      >
+      <CommonModal open={openAddTrade} setOpen={setOpenAddTrade}>
         <Stack m={3} spacing={2}>
           {/* <Typography
             variant="h4"
@@ -91,10 +72,10 @@ function AddTrade({ customer, setCustomer, addTrade }) {
             InputLabelProps={{ shrink: true, style: { fontSize: 25 } }}
             InputProps={{ style: { fontSize: 25 } }}
             fullWidth
-            value={customerId}
-            onChange={(e) => {
-              setCustomerId(e.target.value);
-            }}
+            value={customer.customerName}
+            // onChange={(e) => {
+            //   setCustomerId(e.target.value);
+            // }}
             required
           />
           <TextField
@@ -107,6 +88,7 @@ function AddTrade({ customer, setCustomer, addTrade }) {
               setMoney(e.target.value);
             }}
             required
+            autoFocus={true}
           />
           <TextField
             label="Ngày"

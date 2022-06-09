@@ -1,11 +1,5 @@
-import {
-  Stack,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Fragment, useState } from "react";
-import AddTrade from "./AddTrade";
 import Header from "./Header";
 import ListTrade from "./ListTrade";
 
