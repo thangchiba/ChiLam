@@ -202,3 +202,5 @@ README.html
 ChiLamAPI/src/main/resources/application.properties
 *.properties
 ChiLamAPI/src/main/resources/application.properties
+AWS/thangchibakey.pem
+ChiLamAPI/src/main/resources/application.properties

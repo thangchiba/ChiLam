@@ -1,5 +1,7 @@
 package lamcuong.xyz.ChiLamAPI.Trade;
 
+import lamcuong.xyz.ChiLamAPI.Base.BaseResponse;
+import lamcuong.xyz.ChiLamAPI.Due.DeleteDueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +17,33 @@ public class TradeController {
 
     @GetMapping
     @CrossOrigin
-    public ResponseEntity<List<GetTradeResponse>> GetTrade(GetTradeRequest getTradeRequest) {
-        List<GetTradeResponse> result;
-        result = tradeService.GetTrade(getTradeRequest);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> GetTrade(GetTradeRequest request) {
+        BaseResponse<List<GetTradeResponse>> result = new BaseResponse<>();
+        try {
+            result.content = tradeService.GetTrade(request);
+            result.message = "Lấy dữ liệu giao dịch thành công";
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = e.getMessage();
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 
     @PostMapping
     @CrossOrigin
-    public ResponseEntity<AddTradeResponse> AddTrade(@RequestBody AddTradeRequest request) {
-        AddTradeResponse result;
-        result = tradeService.AddTrade(request);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> AddTrade(@RequestBody AddTradeRequest request) {
+        BaseResponse<AddTradeResponse> result = new BaseResponse<>();
+        try {
+            result.content = tradeService.AddTrade(request);
+            result.message = "Thêm dữ liệu giao dịch thành công";
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = e.getMessage();
+            return ResponseEntity.badRequest().body(result);
+        }
     }
-//    @PutMapping
+
+    //    @PutMapping
 //    @CrossOrigin
 //    public ResponseEntity<UpdateCustomerResponse> UpdateCustomer(@RequestBody UpdateCustomerRequest request) {
 //        UpdateCustomerResponse result;
@@ -37,9 +52,15 @@ public class TradeController {
 //    }
     @DeleteMapping
     @CrossOrigin
-    public ResponseEntity<DeleteTradeResponse> DeleteCustomer(@RequestBody DeleteTradeRequest request) {
-        DeleteTradeResponse result;
-        result = tradeService.DeleteTrade(request);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> DeleteTrade(@RequestBody DeleteTradeRequest request) {
+        BaseResponse<DeleteTradeResponse> result = new BaseResponse<>();
+        try {
+            result.content = tradeService.DeleteTrade(request);
+            result.message = "Xóa dữ liệu giao dịch thành công";
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = "Xóa dữ liệu giao dịch thất bại";
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 }

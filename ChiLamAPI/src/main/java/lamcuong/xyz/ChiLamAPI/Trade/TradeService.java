@@ -16,7 +16,7 @@ import java.util.List;
 public class TradeService extends BaseService<String> {
     protected RowMapper rowMapper = new BeanPropertyRowMapper<GetTradeResponse>(GetTradeResponse.class);
 
-    public List<GetTradeResponse> GetTrade(GetTradeRequest request) {
+    public List<GetTradeResponse> GetTrade(GetTradeRequest request) throws Exception {
         String WHERE_CLAUSE = "";
         ArrayList<Object> params = new ArrayList<Object>();
         if (request.getTradeId() != null) {
@@ -53,16 +53,12 @@ public class TradeService extends BaseService<String> {
                         "WHERE MT.DEL_FLG IS NOT TRUE " +
                         WHERE_CLAUSE + ORDER_BY + PAGINATING_QUERY
                 ).toString();
-        try {
-            List<GetTradeResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        List<GetTradeResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
+        if (result.size() == 0) throw new Exception("Không tìm thấy giao dịch nào");
+        return result;
     }
 
-    public AddTradeResponse AddTrade(AddTradeRequest request) {
+    public AddTradeResponse AddTrade(AddTradeRequest request) throws Exception {
         String SQL_QUERY = "WITH isr AS (INSERT INTO public.m_trade(\n" +
                 "trade_id,customer_id,is_due,money,create_date, update_date, del_flg)\n" +
                 "VALUES (nextval('trade_id_seq'),?,?, ?, ?, ?, ?) RETURNING *)" +
@@ -87,15 +83,12 @@ public class TradeService extends BaseService<String> {
         paramsUpdateCustomer.add(LocalDateTime.now());
         paramsUpdateCustomer.add(request.getCustomerId());
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
-        try {
-            AddTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
-            result.setUpdatedCustomer(updateUserResponse);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+
+        AddTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+        UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
+        result.setUpdatedCustomer(updateUserResponse);
+        if (result == null || updateUserResponse == null) throw new Exception("Thêm giao dịch thất bại");
+        return result;
     }
 
     //    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
@@ -118,7 +111,7 @@ public class TradeService extends BaseService<String> {
 //        }
 //    }
 //
-    public DeleteTradeResponse DeleteTrade(DeleteTradeRequest request) {
+    public DeleteTradeResponse DeleteTrade(DeleteTradeRequest request) throws Exception {
         String SQL_QUERY = "UPDATE public.m_trade\n" +
                 " SET del_flg=true" +
                 " WHERE trade_id = ? AND del_flg = false RETURNING trade_id";
@@ -138,15 +131,12 @@ public class TradeService extends BaseService<String> {
         paramsUpdateCustomer.add(request.getTradeId());
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
 
-        try {
-            DeleteTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            if(result==null) return new DeleteTradeResponse();
-            UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
-            result.setUpdatedCustomer(updateUserResponse);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        DeleteTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+        if (result == null) throw new Exception("Xóa giao dịch thất bại");
+        UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
+        result.setUpdatedCustomer(updateUserResponse);
+        if (updateUserResponse == null) throw new Exception("Xóa giao dịch thất bại");
+        return result;
+
     }
 }

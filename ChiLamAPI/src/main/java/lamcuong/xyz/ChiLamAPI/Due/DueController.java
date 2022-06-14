@@ -1,5 +1,6 @@
 package lamcuong.xyz.ChiLamAPI.Due;
 
+import lamcuong.xyz.ChiLamAPI.Base.BaseResponse;
 import lamcuong.xyz.ChiLamAPI.Customer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,29 @@ public class DueController {
 
     @GetMapping
     @CrossOrigin
-    public ResponseEntity<List<GetDueResponse>> GetDue(GetDueRequest getDueRequest) {
-        List<GetDueResponse> result;
-        result = dueService.getDue(getDueRequest);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> GetDue(GetDueRequest getDueRequest) {
+        BaseResponse<List<GetDueResponse>> result = new BaseResponse<>();
+        try {
+            result.content = dueService.getDue(getDueRequest);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = e.getMessage();
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 
     @PostMapping
     @CrossOrigin
-    public ResponseEntity<AddDueResponse> AddCustomer(@RequestBody AddDueRequest request) {
-        AddDueResponse result;
-        result = dueService.AddDue(request);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> AddDue(@RequestBody AddDueRequest request) {
+        BaseResponse<AddDueResponse> result = new BaseResponse<>();
+        try {
+            result.content = dueService.AddDue(request);
+            result.message = "Thêm dữ giao dịch thành công";
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = e.getMessage();
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 //    @PutMapping
 //    @CrossOrigin
@@ -38,9 +50,15 @@ public class DueController {
 //    }
     @DeleteMapping
     @CrossOrigin
-    public ResponseEntity<DeleteDueResponse> DeleteCustomer(@RequestBody DeleteDueRequest request) {
-        DeleteDueResponse result;
-        result = dueService.DeleteDue(request);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> DeleteDue(@RequestBody DeleteDueRequest request) {
+        BaseResponse<DeleteDueResponse> result = new BaseResponse<>();
+        try {
+            result.content = dueService.DeleteDue(request);
+            result.message = "Xóa dữ liệu giao dịch thành công";
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            result.message = e.getMessage();
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 }
