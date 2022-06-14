@@ -15,11 +15,13 @@ axiosClient.interceptors.request.use(async (config) => {
 axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {
-      return response.data;
+      console.log(response.data.message);
+      return response.data.content || response.data;
     }
     return response;
   },
   (error) => {
+    console.log(error);
     // Handle errors
     throw error;
   }

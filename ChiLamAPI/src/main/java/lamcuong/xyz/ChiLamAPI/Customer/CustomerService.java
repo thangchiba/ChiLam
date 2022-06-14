@@ -11,8 +11,7 @@ import java.util.List;
 
 @Service
 public class CustomerService extends BaseService<String> {
-
-    public List<GetCustomerResponse> GetCustomer(GetCustomerRequest request) {
+    public List<GetCustomerResponse> GetCustomer(GetCustomerRequest request) throws Exception {
         String WHERE_CLAUSE = "";
         ArrayList<Object> params = new ArrayList<Object>();
         if (request.getCustomerId() != null) {
@@ -27,16 +26,12 @@ public class CustomerService extends BaseService<String> {
                         "WHERE DEL_FLG IS NOT TRUE " +
                         WHERE_CLAUSE + ORDER_BY).toString();
         RowMapper<GetCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(GetCustomerResponse.class);
-        try {
-            List<GetCustomerResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        List<GetCustomerResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
+        if (result.size() == 0) throw new Exception("Không tìm thấy user nào");
+        return result;
     }
 
-    public AddCustomerResponse AddCustomer(AddCustomerRequest request) {
+    public AddCustomerResponse AddCustomer(AddCustomerRequest request) throws Exception {
         String SQL_QUERY = "INSERT INTO public.m_customer(\n" +
                 "customer_id, customer_name, phone, address, total_money, last_pay_date, create_date, update_date, del_flg)\n" +
                 "VALUES (nextval('customer_id_seq'),?, ?, ?, ?, ?, ?, ?, ?) RETURNING * ;\n" +
@@ -51,16 +46,13 @@ public class CustomerService extends BaseService<String> {
         params.add(new Date());
         params.add(false);
         RowMapper<AddCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(AddCustomerResponse.class);
-        try {
-            AddCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        AddCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+        if (result == null) throw new Exception("Thêm Người Dùng Thất Bại!!!");
+        return result;
+
     }
 
-    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
+    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) throws Exception {
         String SQL_QUERY = "UPDATE public.m_customer\n" +
                 " SET customer_name=?, phone=?, address=?,update_date=?" +
                 " WHERE customer_id = ? RETURNING *";
@@ -71,28 +63,22 @@ public class CustomerService extends BaseService<String> {
         params.add(new Date());
         params.add(request.getCustomerId());
         RowMapper<UpdateCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
-        try {
-            UpdateCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        UpdateCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+        if (result == null) throw new Exception("Cập Nhật Người Dùng Thất Bại!!!");
+        return result;
+
     }
 
-    public DeleteCustomerResponse DeleteCustomer(DeleteCustomerRequest request) {
+    public DeleteCustomerResponse DeleteCustomer(DeleteCustomerRequest request) throws Exception {
         String SQL_QUERY = "UPDATE public.m_customer\n" +
                 " SET del_flg=true" +
                 " WHERE customer_id = ? RETURNING customer_id";
         ArrayList<Object> params = new ArrayList<>();
         params.add(request.getCustomerId());
         RowMapper<DeleteCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(DeleteCustomerResponse.class);
-        try {
-            DeleteCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        DeleteCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
+        if (result == null) throw new Exception("Xóa Người Dùng Thất Bại!!!");
+        return result;
+
     }
 }
