@@ -4,8 +4,10 @@ import lamcuong.xyz.ChiLamAPI.Base.BaseResponse;
 import lamcuong.xyz.ChiLamAPI.Due.DeleteDueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,30 +19,30 @@ public class TradeController {
 
     @GetMapping
     @CrossOrigin
-    public ResponseEntity<?> GetTrade(GetTradeRequest request) {
+    public ResponseEntity<?> GetTrade(@Valid GetTradeRequest request) throws Exception {
         BaseResponse<List<GetTradeResponse>> result = new BaseResponse<>();
-        try {
+//        try {
             result.content = tradeService.GetTrade(request);
             result.message = "Lấy dữ liệu giao dịch thành công";
             return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            result.message = e.getMessage();
-            return ResponseEntity.badRequest().body(result);
-        }
+//        } catch (Exception e) {
+//            result.message = e.getMessage();
+//            return ResponseEntity.badRequest().body(result);
+//        }
     }
 
     @PostMapping
     @CrossOrigin
-    public ResponseEntity<?> AddTrade(@RequestBody AddTradeRequest request) {
+    public ResponseEntity<?> AddTrade(@Valid @RequestBody AddTradeRequest request) throws Exception {
         BaseResponse<AddTradeResponse> result = new BaseResponse<>();
-        try {
+//        try {
             result.content = tradeService.AddTrade(request);
             result.message = "Thêm dữ liệu giao dịch thành công";
             return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            result.message = e.getMessage();
-            return ResponseEntity.badRequest().body(result);
-        }
+//        } catch (Exception e) {
+//            result.message = e.getMessage();
+//            return ResponseEntity.badRequest().body(result);
+//        }
     }
 
     //    @PutMapping
