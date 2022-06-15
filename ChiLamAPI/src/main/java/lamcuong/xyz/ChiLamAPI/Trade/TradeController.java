@@ -21,28 +21,18 @@ public class TradeController {
     @CrossOrigin
     public ResponseEntity<?> GetTrade(@Valid GetTradeRequest request) throws Exception {
         BaseResponse<List<GetTradeResponse>> result = new BaseResponse<>();
-//        try {
-            result.content = tradeService.GetTrade(request);
-            result.message = "Lấy dữ liệu giao dịch thành công";
-            return ResponseEntity.ok().body(result);
-//        } catch (Exception e) {
-//            result.message = e.getMessage();
-//            return ResponseEntity.badRequest().body(result);
-//        }
+        result.content = tradeService.GetTrade(request);
+        result.message = "Lấy dữ liệu giao dịch thành công";
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping
     @CrossOrigin
     public ResponseEntity<?> AddTrade(@Valid @RequestBody AddTradeRequest request) throws Exception {
         BaseResponse<AddTradeResponse> result = new BaseResponse<>();
-//        try {
-            result.content = tradeService.AddTrade(request);
-            result.message = "Thêm dữ liệu giao dịch thành công";
-            return ResponseEntity.ok().body(result);
-//        } catch (Exception e) {
-//            result.message = e.getMessage();
-//            return ResponseEntity.badRequest().body(result);
-//        }
+        result.content = tradeService.AddTrade(request);
+        result.message = "Thêm dữ liệu giao dịch thành công";
+        return ResponseEntity.ok().body(result);
     }
 
     //    @PutMapping
@@ -54,15 +44,10 @@ public class TradeController {
 //    }
     @DeleteMapping
     @CrossOrigin
-    public ResponseEntity<?> DeleteTrade(@RequestBody DeleteTradeRequest request) {
+    public ResponseEntity<?> DeleteTrade(@RequestBody DeleteTradeRequest request) throws Exception {
         BaseResponse<DeleteTradeResponse> result = new BaseResponse<>();
-        try {
-            result.content = tradeService.DeleteTrade(request);
-            result.message = "Xóa dữ liệu giao dịch thành công";
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            result.message = "Xóa dữ liệu giao dịch thất bại";
-            return ResponseEntity.badRequest().body(result);
-        }
+        result.content = tradeService.DeleteTrade(request);
+        result.message = "Xóa dữ liệu giao dịch thành công";
+        return ResponseEntity.ok().body(result);
     }
 }

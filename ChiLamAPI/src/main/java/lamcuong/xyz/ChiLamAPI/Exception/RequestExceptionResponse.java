@@ -8,6 +8,6 @@ import java.util.Map;
 public class RequestExceptionResponse {
     private Integer status;
     private String message;
-    private Map<String,String> invalidDetail;
+    private Map<String,String> errorDetail;
 }
 

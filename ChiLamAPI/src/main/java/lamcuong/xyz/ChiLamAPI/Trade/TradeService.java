@@ -2,6 +2,7 @@ package lamcuong.xyz.ChiLamAPI.Trade;
 
 import lamcuong.xyz.ChiLamAPI.Base.BaseService;
 import lamcuong.xyz.ChiLamAPI.Customer.UpdateCustomerResponse;
+import lamcuong.xyz.ChiLamAPI.Exception.APIException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class TradeService extends BaseService<String> {
                         WHERE_CLAUSE + ORDER_BY + PAGINATING_QUERY
                 ).toString();
         List<GetTradeResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
-        if (result.size() == 0 && request.getPage() == 0) throw new Exception("Không tìm thấy giao dịch nào");
+        if (result.size() == 0 && request.getPage() == 0) throw new APIException("Không tìm thấy giao dịch nào");
         return result;
     }
 
@@ -87,7 +88,7 @@ public class TradeService extends BaseService<String> {
         AddTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
         UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
         result.setUpdatedCustomer(updateUserResponse);
-        if (result == null || updateUserResponse == null) throw new Exception("Thêm giao dịch thất bại");
+        if (result == null || updateUserResponse == null) throw new APIException("Thêm giao dịch thất bại");
         return result;
     }
 
@@ -135,7 +136,7 @@ public class TradeService extends BaseService<String> {
         if (result == null) throw new Exception("Xóa giao dịch thất bại");
         UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
         result.setUpdatedCustomer(updateUserResponse);
-        if (updateUserResponse == null) throw new Exception("Xóa giao dịch thất bại");
+        if (updateUserResponse == null) throw new APIException("Xóa giao dịch thất bại");
         return result;
 
     }

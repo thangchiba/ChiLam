@@ -1,6 +1,7 @@
 package lamcuong.xyz.ChiLamAPI.Customer;
 
 import lamcuong.xyz.ChiLamAPI.Base.BaseService;
+import lamcuong.xyz.ChiLamAPI.Exception.APIException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CustomerService extends BaseService<String> {
                         WHERE_CLAUSE + ORDER_BY).toString();
         RowMapper<GetCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(GetCustomerResponse.class);
         List<GetCustomerResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
-        if (result.size() == 0) throw new Exception("Không tìm thấy user nào");
+        if (result.size() == 0) throw new APIException("Không tìm thấy user nào");
         return result;
     }
 
@@ -47,7 +48,7 @@ public class CustomerService extends BaseService<String> {
         params.add(false);
         RowMapper<AddCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(AddCustomerResponse.class);
         AddCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-        if (result == null) throw new Exception("Thêm Người Dùng Thất Bại!!!");
+        if (result == null) throw new APIException("Thêm Người Dùng Thất Bại!!!");
         return result;
 
     }
@@ -64,7 +65,7 @@ public class CustomerService extends BaseService<String> {
         params.add(request.getCustomerId());
         RowMapper<UpdateCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
         UpdateCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-        if (result == null) throw new Exception("Cập Nhật Người Dùng Thất Bại!!!");
+        if (result == null) throw new APIException("Cập Nhật Người Dùng Thất Bại!!!");
         return result;
 
     }
@@ -77,7 +78,7 @@ public class CustomerService extends BaseService<String> {
         params.add(request.getCustomerId());
         RowMapper<DeleteCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(DeleteCustomerResponse.class);
         DeleteCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-        if (result == null) throw new Exception("Xóa Người Dùng Thất Bại!!!");
+        if (result == null) throw new APIException("Xóa Người Dùng Thất Bại!!!");
         return result;
 
     }
