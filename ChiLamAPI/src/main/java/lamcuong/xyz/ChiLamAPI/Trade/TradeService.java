@@ -54,7 +54,7 @@ public class TradeService extends BaseService<String> {
                         WHERE_CLAUSE + ORDER_BY + PAGINATING_QUERY
                 ).toString();
         List<GetTradeResponse> result = jdbcTemplate.query(SQL_QUERY, rowMapper, params.toArray());
-        if (result.size() == 0) throw new Exception("Không tìm thấy giao dịch nào");
+        if (result.size() == 0 && request.getPage() == 0) throw new Exception("Không tìm thấy giao dịch nào");
         return result;
     }
 

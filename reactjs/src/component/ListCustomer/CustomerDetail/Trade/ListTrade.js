@@ -1,9 +1,9 @@
 import { CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useSnackbar } from "notistack";
+import { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
-import { tradeAction } from "../../../../store/TradeSlice";
+import AxiosGet from "../../../HTTP_Request/AxiosGet";
 import TradeAPI from "../../../HTTP_Request/TradeAPI";
 import AddTrade from "./AddTrade";
 import TradeItem from "./TradeItem";
@@ -18,6 +18,8 @@ function ListTrade({ customer, setCustomer }) {
   const [page, setPage] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const [fetching, setFetching] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   useEffect(() => {
     setCustomer(customerAfterAddTrade);
   }, [customerAfterAddTrade]);
@@ -34,9 +36,11 @@ function ListTrade({ customer, setCustomer }) {
       orderBy: "trade_id desc",
     });
     console.log(response);
-    if (response.length == 0) {
+    // if (response) enqueueSnackbar(response.message);
+    if (!response || response.length == 0) {
       console.log("no has more");
       setHasmore(false);
+      return;
     }
     setListTrade([...listTrade, ...response]);
     // dispatch(tradeAction.addListTrade({ listTrade: response }));

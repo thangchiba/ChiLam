@@ -38,7 +38,7 @@ public class CustomerController extends BaseController {
         BaseResponse<AddCustomerResponse> result = new BaseResponse<>();
         try {
             result.content = customerService.AddCustomer(request);
-            result.message = "Lấy dữ liệu user thành công";
+            result.message = "Thêm dữ liệu user thành công";
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             result.message = e.getMessage();
@@ -52,7 +52,7 @@ public class CustomerController extends BaseController {
         BaseResponse<UpdateCustomerResponse> result = new BaseResponse<>();
         try {
             result.content = customerService.UpdateCustomer(request);
-            result.message = "Lấy dữ liệu user thành công";
+            result.message = "Cập nhật dữ liệu user thành công";
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             result.message = e.getMessage();

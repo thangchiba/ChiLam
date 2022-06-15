@@ -14,7 +14,6 @@ class CustomerAPI {
   };
   deleteCustomer = (data) => {
     const url = "/customer";
-    console.log(data);
     return axiosClient.delete(url, { data });
   };
 }

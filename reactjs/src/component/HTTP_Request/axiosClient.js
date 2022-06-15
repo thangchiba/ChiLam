@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useSnackbar, withSnackbar } from "notistack";
 import queryString from "query-string";
-
+import { useDispatch } from "react-redux";
+import { customerAction } from "../../store/CustomerSlice";
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -16,14 +18,13 @@ axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {
       console.log(response.data.message);
-      return response.data.content || response.data;
+      return response.data.content;
     }
     return response;
   },
   (error) => {
-    console.log(error);
-    // Handle errors
-    throw error;
+    alert(error.response.data.message);
+    return error.response.data.content;
   }
 );
-export default axiosClient;
+export default withSnackbar(axiosClient);
