@@ -3,6 +3,8 @@ package lamcuong.xyz.ChiLamAPI.Trade;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class GetTradeResponse {
@@ -10,7 +12,7 @@ public class GetTradeResponse {
     private String customerName;
     private Long money;
     private Boolean isDue;
-    private java.sql.Date createDate;
-    private java.sql.Date updateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
     private Boolean delFlg;
 }

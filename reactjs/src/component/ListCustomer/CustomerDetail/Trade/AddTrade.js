@@ -97,7 +97,7 @@ function AddTrade({ customer, setCustomer, addTrade }) {
             InputProps={{ style: { fontSize: 25, marginBottom: 20 } }}
             fullWidth
             value={createDate}
-            defaultValue={new Date()}
+            defaultValue={new Date().nowDateTime()}
             onChange={(e) => {
               console.log(createDate);
               setCreateDate(e.target.value);

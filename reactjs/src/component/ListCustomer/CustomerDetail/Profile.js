@@ -1,5 +1,9 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
+import {
+  GetDateTimeVietnamese,
+  GetDateVietnamese,
+} from "../../../CommonMethod/DateTimeCalc";
 import { customerAction } from "../../../store/CustomerSlice";
 import customerAPI from "../../HTTP_Request/CustomerAPI";
 
@@ -57,7 +61,7 @@ export default function Profile({ customer, setCustomer }) {
       <TextField
         InputLabelProps={{ shrink: true }}
         label="Thanh Toán Gần Đây"
-        value={customer.lastPayDate}
+        value={GetDateTimeVietnamese(customer.lastPayDate)}
       />
       {/* <Stack flexDirection={"row"}> */}
       <Button

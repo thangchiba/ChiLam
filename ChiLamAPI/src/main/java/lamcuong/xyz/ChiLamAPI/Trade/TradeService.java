@@ -77,11 +77,15 @@ public class TradeService extends BaseService<String> {
 
         //Update total_money to customer
         String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE public.m_customer SET\n" +
-                " total_money = total_money + ?,last_pay_date=? \n" +
+                " total_money = total_money + ?" +
+                //When pay then update last pay
+                (!request.getIsDue() ? " ,last_pay_date=? \n" : "") +
                 " WHERE customer_id=? RETURNING * ";
         ArrayList<Object> paramsUpdateCustomer = new ArrayList<>();
         paramsUpdateCustomer.add(request.getMoney() * (request.getIsDue() ? 1 : -1));
-        paramsUpdateCustomer.add(LocalDateTime.now());
+        if (!request.getIsDue()) {
+            paramsUpdateCustomer.add(LocalDateTime.now());
+        }
         paramsUpdateCustomer.add(request.getCustomerId());
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
 
@@ -92,26 +96,6 @@ public class TradeService extends BaseService<String> {
         return result;
     }
 
-    //    public UpdateCustomerResponse UpdateCustomer(UpdateCustomerRequest request) {
-//        String SQL_QUERY = "UPDATE public.m_customer\n" +
-//                " SET customer_name=?, phone=?, address=?,update_date=?" +
-//                " WHERE customer_id = ? RETURNING *";
-//        ArrayList<Object> params = new ArrayList<>();
-//        params.add(request.getCustomerName());
-//        params.add(request.getPhone());
-//        params.add(request.getAddress());
-//        params.add(new Date());
-//        params.add(request.getCustomerId());
-//        RowMapper<UpdateCustomerResponse> rowMapper = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
-//        try {
-//            UpdateCustomerResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-//            return result;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
     public DeleteTradeResponse DeleteTrade(DeleteTradeRequest request) throws Exception {
         String SQL_QUERY = "UPDATE public.m_trade\n" +
                 " SET del_flg=true" +
@@ -122,18 +106,18 @@ public class TradeService extends BaseService<String> {
 
         //update total_money to customer
         String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE M_CUSTOMER AS MC\n" +
-                "SET TOTAL_MONEY = TOTAL_MONEY - (MT.MONEY * (CASE WHEN MT.IS_DUE THEN 1 ELSE -1 END)),\n" +
-                " LAST_PAY_DATE = ? " +
+                "SET TOTAL_MONEY = TOTAL_MONEY - (MT.MONEY * (CASE WHEN MT.IS_DUE THEN 1 ELSE -1 END))\n" +
+//                " LAST_PAY_DATE = ? " +
                 "FROM M_Trade AS MT\n" +
                 "WHERE MC.CUSTOMER_ID = MT.CUSTOMER_ID\n" +
                 "AND MT.Trade_ID = ? RETURNING * ;";
         ArrayList<Object> paramsUpdateCustomer = new ArrayList<>();
-        paramsUpdateCustomer.add(LocalDateTime.now());
+//        paramsUpdateCustomer.add(LocalDateTime.now());
         paramsUpdateCustomer.add(request.getTradeId());
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
 
         DeleteTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
-        if (result == null) throw new Exception("Xóa giao dịch thất bại");
+        if (result == null) throw new APIException("Xóa giao dịch thất bại");
         UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
         result.setUpdatedCustomer(updateUserResponse);
         if (updateUserResponse == null) throw new APIException("Xóa giao dịch thất bại");

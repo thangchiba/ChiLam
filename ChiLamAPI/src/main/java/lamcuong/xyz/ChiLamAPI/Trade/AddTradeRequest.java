@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class AddTradeRequest {
     private String customerId;
-    @Min(100)
+    @Min(1)
     @NotNull
     private Long money;
     private Boolean isDue;

@@ -3,6 +3,8 @@ package lamcuong.xyz.ChiLamAPI.Customer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class GetCustomerResponse {
@@ -11,8 +13,8 @@ public class GetCustomerResponse {
     private String phone;
     private String address;
     private Long totalMoney;
-    private java.sql.Date lastPayDate;
-    private java.sql.Date createDate;
-    private java.sql.Date updateDate;
+    private LocalDateTime lastPayDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
     private String delFlg;
 }

@@ -14,13 +14,15 @@ import meat from "../../static/image/icon/meat.png";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import HomeIcon from "@mui/icons-material/Home";
 import PaidIcon from "@mui/icons-material/Paid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function UserAvatar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   function handleClick(event) {
     // setAnchorEl(event.currentTarget);
+    navigate("/customer");
   }
   function handleClose() {
     setAnchorEl(null);
