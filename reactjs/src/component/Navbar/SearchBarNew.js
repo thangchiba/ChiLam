@@ -5,11 +5,12 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { customerAction } from "../../store/CustomerSlice";
 import customerAPI from "../HTTP_Request/CustomerAPI";
 
 export default function SearchBarNew() {
   const listCustomerRedux = useSelector((redux) => redux.customer.listCustomer);
-  const [listCustomer, setListCustomer] = useState([]);
+  // const [listCustomer, setListCustomer] = useState([]);
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ export default function SearchBarNew() {
   useEffect(() => {
     async function getCustomer() {
       const response = await customerAPI.getCustomer();
-      if (response) setListCustomer(response);
+      if (response)
+        // setListCustomer(response);
+        dispatch(customerAction.setListCustomer({ listCustomer: response }));
     }
     getCustomer();
   }, []);
@@ -27,8 +30,8 @@ export default function SearchBarNew() {
     <Stack spacing={2} sx={{ mx: 1 }}>
       <Autocomplete
         selectOnFocus
-        sx={{ width: 170 }}
-        options={listCustomer.map((option) => option)}
+        sx={{ width: 220 }}
+        options={listCustomerRedux.map((option) => option)}
         getOptionLabel={(option) => option.customerName}
         renderInput={(params) => (
           <TextField

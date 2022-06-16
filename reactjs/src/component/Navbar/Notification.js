@@ -22,33 +22,33 @@ function Notification() {
   function handleClose() {
     setAnchorEl(null);
   }
-  const listDue = useSelector((redux) => redux.due.listDue);
-  const listDueWarning = listDue.filter((due) => {
-    let countDays = CountDays(due.createDate);
-    return countDays >= 7;
+  const listCustomerRedux = useSelector((redux) => redux.customer.listCustomer);
+  const listWarning = listCustomerRedux.filter((customer) => {
+    let countDays = CountDays(customer.lastPayDate);
+    return countDays >= 1;
   });
   return (
     <Stack>
       <IconButton onClick={handleClick}>
-        <Badge badgeContent={listDueWarning.length} color="error">
+        <Badge badgeContent={listWarning.length} color="error">
           <NotificationsActiveIcon sx={{ fontSize: 40 }} color="primary" />
         </Badge>
       </IconButton>
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
-        {listDueWarning.map((due) => {
+        {listWarning.map((customer) => {
           return (
-            <MenuItem key={due.id}>
-              <Avatar
+            <MenuItem key={customer.customerId}>
+              {/* <Avatar
                 src={require("../../static/image/icon/".concat(
                   due.customerImage
                 ))}
-              />
+              /> */}
               <Typography variant="h5">
-                {due.customerName +
+                {customer.customerName +
                   " - " +
-                  (due.total - due.paid) +
+                  customer.totalMoney +
                   " - " +
-                  CountDays(due.createDate) +
+                  CountDays(customer.lastPayDate) +
                   " Ngày"}
               </Typography>
             </MenuItem>

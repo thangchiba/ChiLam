@@ -20,7 +20,7 @@ function UserAvatar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   function handleClick(event) {
-    setAnchorEl(event.currentTarget);
+    // setAnchorEl(event.currentTarget);
   }
   function handleClose() {
     setAnchorEl(null);

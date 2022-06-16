@@ -31,15 +31,15 @@ function Content() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const listCustomer = useSelector((redux) => redux.customer.listCustomer);
-  useEffect(() => {
-    async function getCustomer() {
-      const response = await customerAPI.getCustomer({
-        orderBy: "customer_id desc",
-      });
-      dispatch(customerAction.setListCustomer({ listCustomer: response }));
-    }
-    getCustomer();
-  }, []);
+  // useEffect(() => {
+  //   async function getCustomer() {
+  //     const response = await customerAPI.getCustomer({
+  //       orderBy: "customer_id desc",
+  //     });
+  //     dispatch(customerAction.setListCustomer({ listCustomer: response }));
+  //   }
+  //   getCustomer();
+  // }, []);
 
   //Customer Detail Modal
   const [openDetail, setOpenDetail] = useState(false);

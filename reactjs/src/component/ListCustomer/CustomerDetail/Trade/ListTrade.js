@@ -3,7 +3,6 @@ import { useSnackbar } from "notistack";
 import { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
-import AxiosGet from "../../../HTTP_Request/AxiosGet";
 import TradeAPI from "../../../HTTP_Request/TradeAPI";
 import AddTrade from "./AddTrade";
 import TradeItem from "./TradeItem";
@@ -19,6 +18,13 @@ function ListTrade({ customer, setCustomer }) {
   const [hasMore, setHasmore] = useState(true);
   const [fetching, setFetching] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    setListTrade([]);
+    setPage(0);
+    setHasmore(true);
+    setFetching(false);
+  }, [customer]);
 
   useEffect(() => {
     setCustomer(customerAfterAddTrade);

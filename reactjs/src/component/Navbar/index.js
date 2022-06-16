@@ -24,10 +24,10 @@ function Navbar() {
             sx={{ width: "100%" }}
           >
             <UserAvatar />
-            <PageSelect />
+            {/* <PageSelect /> */}
             {/* <SearchBar /> */}
             <SearchBarNew />
-            {/* <Notification /> */}
+            <Notification />
           </Box>
         </StyledToolbar>
       </AppBar>
