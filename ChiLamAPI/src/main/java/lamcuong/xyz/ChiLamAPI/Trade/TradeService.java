@@ -47,6 +47,7 @@ public class TradeService extends BaseService<String> {
                         ",  MC.CUSTOMER_NAME AS CUSTOMER_NAME\n" +
                         ",  MT.MONEY AS MONEY\n" +
                         ",  MT.IS_DUE AS IS_DUE\n" +
+                        ",  MT.TOTAL_DUE AS TOTAL_DUE\n" +
                         ",  MT.CREATE_DATE AS CREATE_DATE\n" +
                         ",  MT.UPDATE_DATE AS UPDATE_DATE\n" +
                         "FROM M_Trade AS MT\n" +
@@ -60,21 +61,6 @@ public class TradeService extends BaseService<String> {
     }
 
     public AddTradeResponse AddTrade(AddTradeRequest request) throws Exception {
-        String SQL_QUERY = "WITH isr AS (INSERT INTO public.m_trade(\n" +
-                "trade_id,customer_id,is_due,money,create_date, update_date, del_flg)\n" +
-                "VALUES (nextval('trade_id_seq'),?,?, ?, ?, ?, ?) RETURNING *)" +
-                "SELECT *,mc.customer_name FROM isr " +
-                "LEFT JOIN m_customer as mc on mc.customer_id = isr.customer_id;\n" +
-                "";
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(request.getCustomerId());
-        params.add(request.getIsDue());
-        params.add(request.getMoney());
-        params.add(request.getCreateDate());
-        params.add(LocalDateTime.now());
-        params.add(false);
-        RowMapper<AddTradeResponse> rowMapper = new BeanPropertyRowMapper<>(AddTradeResponse.class);
-
         //Update total_money to customer
         String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE public.m_customer SET\n" +
                 " total_money = total_money + ?" +
@@ -88,9 +74,24 @@ public class TradeService extends BaseService<String> {
         }
         paramsUpdateCustomer.add(request.getCustomerId());
         RowMapper<UpdateCustomerResponse> rowMapperCustomer = new BeanPropertyRowMapper<>(UpdateCustomerResponse.class);
-
-        AddTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY, rowMapper, params.toArray());
         UpdateCustomerResponse updateUserResponse = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_CUSTOMER, rowMapperCustomer, paramsUpdateCustomer.toArray());
+
+        String SQL_QUERY_UPDATE_TRADE = "WITH isr AS (INSERT INTO public.m_trade(\n" +
+                "trade_id,customer_id,is_due,money,TOTAL_DUE,create_date, update_date, del_flg)\n" +
+                "VALUES (nextval('trade_id_seq'),?,?, ?, ?, ?, ?, ?) RETURNING *)" +
+                "SELECT *,mc.customer_name FROM isr " +
+                "LEFT JOIN m_customer as mc on mc.customer_id = isr.customer_id;\n" +
+                "";
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(request.getCustomerId());
+        params.add(request.getIsDue());
+        params.add(request.getMoney());
+        params.add(updateUserResponse.getTotalMoney());
+        params.add(request.getCreateDate());
+        params.add(LocalDateTime.now());
+        params.add(false);
+        RowMapper<AddTradeResponse> rowMapper = new BeanPropertyRowMapper<>(AddTradeResponse.class);
+        AddTradeResponse result = jdbcTemplate.queryForObject(SQL_QUERY_UPDATE_TRADE, rowMapper, params.toArray());
         result.setUpdatedCustomer(updateUserResponse);
         if (result == null || updateUserResponse == null) throw new APIException("Thêm giao dịch thất bại");
         return result;
@@ -106,11 +107,11 @@ public class TradeService extends BaseService<String> {
 
         //update total_money to customer
         String SQL_QUERY_UPDATE_CUSTOMER = "UPDATE M_CUSTOMER AS MC\n" +
-                "SET TOTAL_MONEY = TOTAL_MONEY - (MT.MONEY * (CASE WHEN MT.IS_DUE THEN 1 ELSE -1 END))\n" +
+                "SET TOTAL_MONEY = MC.TOTAL_MONEY - (MT.MONEY * (CASE WHEN MT.IS_DUE THEN 1 ELSE -1 END))\n" +
 //                " LAST_PAY_DATE = ? " +
                 "FROM M_Trade AS MT\n" +
                 "WHERE MC.CUSTOMER_ID = MT.CUSTOMER_ID\n" +
-                "AND MT.Trade_ID = ? RETURNING * ;";
+                "AND MT.Trade_ID = ? RETURNING *;";
         ArrayList<Object> paramsUpdateCustomer = new ArrayList<>();
 //        paramsUpdateCustomer.add(LocalDateTime.now());
         paramsUpdateCustomer.add(request.getTradeId());

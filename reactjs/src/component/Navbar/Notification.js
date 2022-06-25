@@ -28,7 +28,7 @@ function Notification() {
   const listWarning = listCustomerRedux
     .filter((customer) => {
       let countDays = CountDays(customer.lastPayDate);
-      return countDays >= 7;
+      return countDays >= 7 && customer.totalMoney > 0;
     })
     .sort(compare);
   function compare(a, b) {

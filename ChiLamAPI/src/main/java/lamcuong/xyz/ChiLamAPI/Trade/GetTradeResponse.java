@@ -12,6 +12,7 @@ public class GetTradeResponse {
     private String customerName;
     private Long money;
     private Boolean isDue;
+    private Long totalDue;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private Boolean delFlg;

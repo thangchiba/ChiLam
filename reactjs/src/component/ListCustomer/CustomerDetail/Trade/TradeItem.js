@@ -16,9 +16,8 @@ const StyledContainer = styled(Grid)({
 const StyledGrid = styled(Grid)({
   display: "flex",
   alignItems: "center",
-  justifyContent: "start",
-  paddingInline: 3,
-  fontSize: 20,
+  justifyContent: "center",
+  fontSize: 15,
   fontWeight: 700,
   borderRight: "0.1px solid gray",
 });
@@ -40,25 +39,37 @@ function TradeItem({ trade, removeTrade }) {
       backgroundColor={trade.isDue ? pink[50] : green[50]}
       key={trade.tradeId}
     >
-      <StyledGrid item xs={4} sm={3}>
-        <Typography variant="h5">{trade.money}</Typography>
-      </StyledGrid>
-      <StyledGrid item xs={6} sm={4}>
-        <Typography variant="h5">
+      <StyledGrid item xs={5}>
+        <Typography variant="h6">
           {GetDateVietnamese(trade.createDate)}
         </Typography>
       </StyledGrid>
-      <StyledGrid
+      <StyledGrid item xs={2}>
+        <Typography variant="h6" textAlign={"center"}>
+          {trade.isDue && trade.money}
+        </Typography>
+      </StyledGrid>
+      <StyledGrid item xs={2}>
+        <Typography variant="h6" textAlign={"center"}>
+          {!trade.isDue && trade.money}
+        </Typography>
+      </StyledGrid>
+      <StyledGrid item xs={2}>
+        <Typography variant="h6" textAlign={"center"}>
+          {trade.totalDue}
+        </Typography>
+      </StyledGrid>
+      {/* <StyledGrid
         item
         xs={0}
         sm={4}
         sx={{ display: { xs: "none", sm: "flex" } }}
       >
-        <Typography variant="h5">{countDays + " Ngày"}</Typography>
-      </StyledGrid>
-      <StyledGrid item xs={2} sm={1}>
+        <Typography variant="h6">{countDays + " Ngày"}</Typography>
+      </StyledGrid> */}
+      <StyledGrid item xs={1}>
         <RemoveCircleOutlineIcon
-          sx={{ fontSize: 35, color: "red", marginLeft: 1, cursor: "pointer" }}
+          sx={{ fontSize: 25, color: "red", cursor: "pointer" }}
           onClick={handleDeleteTrade}
         />
       </StyledGrid>

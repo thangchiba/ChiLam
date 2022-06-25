@@ -9,7 +9,7 @@ function Trade({ customer, setCustomer }) {
     <Fragment>
       <Stack px={3} spacing={1.5} sx={{ display: "block", overflow: "auto" }}>
         <Typography variant="h3" color="primary" textAlign="center" my={3}>
-          Thanh Toán
+          Công Nợ
         </Typography>
 
         {/* <ToggleButtonGroup
