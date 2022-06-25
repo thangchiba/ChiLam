@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import _default from "react-redux/es/components/connect";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import CustomerPage from "./page/CustomerPage";

@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CountDays from "../../CommonMethod/DateTimeCalc";
 
 function Notification() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   function handleClick(event) {
@@ -23,10 +25,22 @@ function Notification() {
     setAnchorEl(null);
   }
   const listCustomerRedux = useSelector((redux) => redux.customer.listCustomer);
-  const listWarning = listCustomerRedux.filter((customer) => {
-    let countDays = CountDays(customer.lastPayDate);
-    return countDays >= 1;
-  });
+  const listWarning = listCustomerRedux
+    .filter((customer) => {
+      let countDays = CountDays(customer.lastPayDate);
+      return countDays >= 7;
+    })
+    .sort(compare);
+  function compare(a, b) {
+    if (a.lastPayDate < b.lastPayDate) {
+      return -1;
+    }
+    if (a.lastPayDate > b.lastPayDate) {
+      return 1;
+    }
+    return 0;
+  }
+
   return (
     <Stack>
       <IconButton onClick={handleClick}>
@@ -37,7 +51,12 @@ function Notification() {
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
         {listWarning.map((customer) => {
           return (
-            <MenuItem key={customer.customerId}>
+            <MenuItem
+              key={customer.customerId}
+              onClick={() => {
+                navigate("/customer/" + customer.customerId);
+              }}
+            >
               {/* <Avatar
                 src={require("../../static/image/icon/".concat(
                   due.customerImage
@@ -47,7 +66,7 @@ function Notification() {
                 {customer.customerName +
                   " - " +
                   customer.totalMoney +
-                  " - " +
+                  "k " +
                   CountDays(customer.lastPayDate) +
                   " Ngày"}
               </Typography>
